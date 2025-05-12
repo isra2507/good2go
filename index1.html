@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pharmacy Store</title>
+  <style>
+ body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/R.png");
+  background-blend-mode: lighten;
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: cover; 
+}
+    header {
+  background: linear-gradient(rgb(222, 35, 35),rgb(255, 255, 255));
+  color: rgb(0, 0, 0);
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      width: 60px;
+      height: 60px;
+      margin-right: 15px;
+    }
+    .header-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .header-text h1, .header-text h2 {
+      margin: 0;
+      font-weight: bold;
+    }
+    .top-right-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .top-right-buttons button {
+      padding: 10px 20px;
+      background-color: white;
+      color: red;
+      border: 1px solid red;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .search-bar {
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .search-bar input {
+    width: 90%; /* Increased width to make the search bar longer */
+    max-width: 900px; /* Adjusted max-width for larger screens */
+    padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgb(255, 249, 249);
+    color: black;
+    border: 3px solid rgb(64, 171, 221);
+    border-radius: 40px;
+    text-align: left;
+    outline: none;
+  }
+
+  .search-bar input::placeholder {
+    text-align: center;
+    color: gray;
+  }
+    .search-bar img {
+      width: 40px;
+      height: 40px;
+      margin-left: 15cm;
+      cursor: pointer;
+      position: absolute;
+    }
+    .search-bar button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      background-color: white;
+      color: red;
+      border: 1px solid red;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .filter-section {
+      width: 20%;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+    .filter-section h3 {
+      margin-top: 0;
+    }
+    .filter-section label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .filter-section input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .filter-section button {
+      padding: 10px 20px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .content {
+      flex-grow: 1;
+    }
+    .filter-icon {
+      position: absolute;
+      left: 20px;
+      top: 100px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 100;
+    }
+    .filter-icon:hover + .filter-popup {
+  display: block; 
+}
+    .filter-popup {
+      display: none;
+      position: absolute;
+      left: 20px;
+      top: 140px;
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .about {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+}
+
+.about h2 {
+  margin-top: 0;
+  color: rgb(0, 0, 0);
+  font-family: 'Times New Roman', Times, serif ;
+  font-style: italic;
+  text-align: center;
+}
+
+.about p {
+  font-size: 18px;
+  font-family: 'Times New Roman', Times, serif ;
+  color: #333;
+}
+    .filter-popup h3 {
+      margin-top: 0;
+    }
+    .filter-popup label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .filter-popup input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .filter-popup button {
+      padding: 10px 20px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-left {
+        margin-bottom: 20px;
+      }
+      .top-right-buttons {
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+    @media (max-width: 480px) {
+      .search-bar input {
+        width: 80%;
+      }
+      .search-bar img {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+      }
+      .search-bar button {
+        padding: 5px 10px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/logo.png"  sizes="100vw" alt="Logo" class="logo">
+    <div class="header-text">
+      <h1> <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\goods2go.jpg"  sizes="100vw" alt="Logo" class="logo"></h1>
+     <!-- <h2>Motto</h2>!-->
+    </div>
+  </div>
+  <div class="top-right-buttons">
+    <button onclick="showSection('home')">🏠 Home</button>
+    <button onclick="showSection('bookmark')">🔖 Bookmark</button>
+  </div>
+</header>
+
+<button class="filter-icon" onclick="toggleFilter()">☰ ⚙️</button>
+<div class="filter-popup" id="filterPopup">
+  <h3>Filters</h3>
+  <label for="priceRangeMin">Price Range ($):</label>
+  <input type="range" id="priceRangeMin" min="0" max="1000" step="10" value="0" oninput="updatePriceRange()">
+  <input type="range" id="priceRangeMax" min="0" max="1000" step="10" value="1000" oninput="updatePriceRange()">
+  <p>Selected Price: <span id="priceRangeValue">$0 - $1000</span></p>
+  
+  <label for="distanceRange">Distance (miles):</label>
+  <input type="range" id="distanceRange" min="0" max="100" step="5" value="50" oninput="updateDistanceRange(this.value)">
+  <p>Selected Distance within: <span id="distanceRangeValue">50</span> miles</p>
+
+  <label for="zipCode">ZIP Code:</label>
+  <input type="text" id="zipCode" placeholder="Enter ZIP Code">
+  
+  <button onclick="applyFilters()">Apply Filters</button>
+</div>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" list="medicineSuggestions" placeholder="Search for your medicine or enter a code" />
+  <datalist id="medicineSuggestions">
+    <option value="Tylenol Extra Strength">
+    <option value="Tylenol Cold & Flu Severe">
+    <option value="Tylenol">
+    <option value="Tylenol Arthritis Pain">
+    <option value="Ibuprofen Extra Strength">
+    <option value="Ibuprofen Cold & Flu Severe">
+    <option value="Ibuprofen">
+    <option value="Ibuprofen Arthritis Pain">
+  </datalist>
+  <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" alt="Search" onclick="handleSearch()" />
+  <button onclick="handleSearch()">Search</button>
+</div>
+
+<section class="about">
+  <h2>About Us</h2>
+  <p>Welcome to the Pharmacy Store! We are dedicated to providing you with the best medicines and healthcare products around your vicinity. Our mission is to ensure your health and well-being with an affordable quality and care.</p>
+</section>
+
+
+<script>
+  
+  function toggleFilter() {
+    const popup = document.getElementById('filterPopup');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  }
+
+ 
+  document.addEventListener('click', function(event) {
+    const filterPopup = document.getElementById('filterPopup');
+    const filterIcon = document.querySelector('.filter-icon');
+    if (!filterPopup.contains(event.target) && !filterIcon.contains(event.target)) {
+      filterPopup.style.display = 'none';
+    }
+  });
+
+  
+  function updatePriceRange() {
+    const minPrice = document.getElementById('priceRangeMin').value;
+    const maxPrice = document.getElementById('priceRangeMax').value;
+    document.getElementById('priceRangeValue').textContent = `$${minPrice} - $${maxPrice}`;
+  }
+
+  
+  function updateDistanceRange(value) {
+    document.getElementById('distanceRangeValue').textContent = value;
+  }
+
+ 
+  function applyFilters() {
+    const minPrice = document.getElementById('priceRangeMin').value;
+    const maxPrice = document.getElementById('priceRangeMax').value;
+    const distance = document.getElementById('distanceRange').value;
+    const zipCode = document.getElementById('zipCode').value.trim();
+
+    // Save the ZIP code to localStorage
+    localStorage.setItem('zipCode', zipCode);
+
+    alert(`Filters applied:\nPrice: $${minPrice} - $${maxPrice}\nDistance: ${distance} miles\nZIP Code: ${zipCode}`);
+  }
+  function handleSearch() {
+  const searchQuery = document.querySelector('.search-bar input').value.trim();
+  localStorage.setItem('searchQuery', searchQuery);
+  window.location.href = 'results.html';
+}
+
+// Add event listener for "Enter" key press
+document.querySelector('.search-bar input').addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    handleSearch();
+  }
+});
+
+// Add event listener for "Enter" key press
+document.querySelector('.search-bar input').addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    handleSearch();
+  }
+});
+
+  function showSection(sectionId) {
+  if (sectionId === 'filter') {
+    const popup = document.getElementById('filterPopup');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  } else {
+    alert(`Navigating to ${sectionId} section.`);
+    
+  }
+}
+</script>
+
+<script>
+  // Function to handle the search
+ // Function to handle the search
+function handleSearch() {
+  const searchQuery = document.querySelector('.search-bar input').value.trim().toLowerCase();
+
+  if (searchQuery.includes("tylenol")) {
+    localStorage.setItem('searchQuery', searchQuery);
+    window.location.href = 'results.html';
+  } else if (searchQuery.includes("ibuprofen")) {
+    localStorage.setItem('searchQuery', searchQuery);
+    window.location.href = 'ireslt.html';
+  } else {
+    alert("Please enter a valid medicine name or code.");
+  }
+}
+  
+
+  // Ensure the DOM is fully loaded before adding the event listener
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.querySelector('.search-bar input');
+    searchInput.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        handleSearch();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
