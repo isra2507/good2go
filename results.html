@@ -144,10 +144,12 @@
 
     .location-box {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 50%;
+      left: 75%;
+      transform: translate(-50%, -50%);
       font-weight: bold;
       color: rgb(44, 42, 215);
+      text-align: center;
     }
 
     .availability-box {
@@ -155,7 +157,7 @@
       bottom: 10px;
       right: 10px;
       font-weight: bold;
-      color: rgb(44, 42, 215);
+      color: green; /* Change color to green */
     }
 
     .search-bar img {
@@ -255,7 +257,7 @@
     </div>
     <div class="top-right-buttons">
       <button onclick="goHome()">🏠 Home</button>
-      <button onclick="alert('Bookmark feature coming soon!')">🔖 Bookmark</button>
+      <button onclick="window.location.href='bookmarks.html'">🔖 Bookmarks</button>
     </div>
   </header>
 
@@ -271,15 +273,17 @@
     <h3>Filters</h3>
 
     <!-- Store Selection -->
-    <label for="storeSelect">Choose 1 Store:</label>
-    <select id="storeSelect">
-      <option value="Rite-Aid">Rite-Aid</option>
-      <option value="Walgreens">Walgreens</option>
-      <option value="Safeway Pharmacy">Safeway Pharmacy</option>
-      <option value="Qfc Pharmacy">Qfc Pharmacy</option>
-      <option value="CVS">CVS</option>
-      <option value="Bartell Drugs">Bartell Drugs</option>
-    </select>
+    <label>Choose Stores:</label>
+    <div id="storeCheckboxes">
+      <label><input type="checkbox" value="All" onchange="filterResults()"> All</label><br>
+      <label><input type="checkbox" value="CVS" onchange="filterResults()"> CVS</label><br>
+      <label><input type="checkbox" value="Fred Meyer" onchange="filterResults()"> Fred Meyer</label><br>
+      <label><input type="checkbox" value="Qfc" onchange="filterResults()"> Qfc</label><br>
+      <label><input type="checkbox" value="Safeway" onchange="filterResults()"> Safeway</label><br>
+      <label><input type="checkbox" value="Target" onchange="filterResults()"> Target</label><br>
+      <label><input type="checkbox" value="Walgreens" onchange="filterResults()"> Walgreens</label><br>
+      <label><input type="checkbox" value="Walmart" onchange="filterResults()"> Walmart</label><br>
+    </div>
     <br><br>
 
     <!-- Distance Range -->
@@ -294,6 +298,20 @@
     <input type="range" id="priceRangeMax" min="0" max="1000" step="10" value="1000" oninput="updatePriceLabel()">
     <p>Selected Price: <span id="priceLabel">$0 - $1000</span></p>
     <br>
+
+    <!-- Sorting Options -->
+    <label for="sortBy">Sort By:</label>
+    <select id="sortBy">
+      <option value="none">None</option>
+      <option value="price">Price</option>
+      <option value="location">Location (ZIP Code)</option>
+      <option value="both">Price & Location</option>
+    </select>
+    <br><br>
+
+    <!-- Availability Filter -->
+    <label><input type="checkbox" id="inStockOnly" onchange="applyFilters()"> In Stock Only</label>
+    <br><br>
 
     <button onclick="applyFilters()">Apply Filters</button>
   </div>
@@ -314,97 +332,7 @@
 
 
   <!-- Results Containers -->
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/cvs.jpeg" alt="CVS">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ty.jpeg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/walgreen.jpg" alt="Walgreens">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ty.jpeg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-  <!-- Add 3 more empty results containers -->
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\RiteAid.png" alt="RiteAid">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ty.jpeg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\bartellDrugs.webp" alt="BartellDrugs">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ty.jpeg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\safewayPharmacy.jpg" alt="Safeway">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ty.jpeg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\Qfc.png" alt="Qfc">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ty.jpeg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
+  <div id="results"></div>
 
   <script>
     // Load the search query and ZIP code from localStorage and update the page
@@ -453,7 +381,43 @@
 
     // Apply filters (placeholder function)
     function applyFilters() {
-      alert('Filters applied!');
+      const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
+      const selectedStores = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked && checkbox.value !== "All")
+        .map(checkbox => checkbox.value);
+
+      const minPrice = parseInt(document.getElementById('priceRangeMin').value, 10);
+      const maxPrice = parseInt(document.getElementById('priceRangeMax').value, 10);
+      const sortBy = document.getElementById('sortBy').value;
+      const inStockOnly = document.getElementById('inStockOnly').checked;
+
+      // Filter data based on selected stores, price range, and availability
+      let filteredData = storeData.filter(store => {
+        const price = parseFloat(store.price.replace('$', ''));
+        const isInStock = !inStockOnly || store.availability === "In Stock";
+        return (
+          (selectedStores.length === 0 || selectedStores.includes(store.company)) &&
+          price >= minPrice &&
+          price <= maxPrice &&
+          isInStock
+        );
+      });
+
+      // Sort data based on the selected sorting option
+      if (sortBy === 'price') {
+        filteredData.sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
+      } else if (sortBy === 'location') {
+        filteredData.sort((a, b) => parseInt(a.zip, 10) - parseInt(b.zip, 10));
+      } else if (sortBy === 'both') {
+        filteredData.sort((a, b) => {
+          const priceDiff = parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', ''));
+          if (priceDiff !== 0) return priceDiff;
+          return parseInt(a.zip, 10) - parseInt(b.zip, 10);
+        });
+      }
+
+      // Generate results based on the filtered and sorted data
+      generateResults(filteredData);
     }
 
     function handleSearch() {
@@ -490,6 +454,153 @@
       alert('Please enter a valid ZIP Code.');
     }
   }
-  </script>
+
+  // Updated data for the container boxes with specific availability
+  const storeData = [
+    { company: "CVS", address: "10712 SE Carr Rd", city: "Renton", state: "WA", zip: "98055", price: "$5.99", image: "cvs.jpeg", availability: "In Stock" },
+    { company: "CVS", address: "107 Bellevue Way", city: "Bellevue", state: "WA", zip: "98004", price: "$5.99", image: "cvs.jpeg", availability: "Out of Stock" }, // CVS Out of Stock
+    { company: "CVS", address: "33520 21st Ave SW", city: "Federal Way", state: "WA", zip: "98023", price: "$5.99", image: "cvs.jpeg", availability: "In Stock" },
+    { company: "Fred Meyer", address: "17801 108th Ave SE", city: "Renton", state: "WA", zip: "98055", price: "$4.99", image: "fred_meyer.jpg", availability: "Out of Stock" }, // Fred Meyer Out of Stock
+    { company: "Fred Meyer", address: "14300 1St Ave S", city: "Burien", state: "WA", zip: "98168", price: "$4.99", image: "fred_meyer.jpg", availability: "In Stock" },
+    { company: "Fred Meyer", address: "1000 164th St SW", city: "Lynnwood", state: "WA", zip: "98087", price: "$4.99", image: "fred_meyer.jpg", availability: "In Stock" }, // New Fred Meyer Entry
+    { company: "Qfc", address: "200 S 3rd St", city: "Renton", state: "WA", zip: "98057", price: "$6.49", image: "Qfc.png", availability: "In Stock" },
+    { company: "Qfc", address: "27035 Pacific Hwy S", city: "Des Moines", state: "WA", zip: "98198", price: "$6.49", image: "Qfc.png", availability: "In Stock" }, // New QFC Entry
+    { company: "Qfc", address: "4800 NE 4th St", city: "Renton", state: "WA", zip: "98059", price: "$6.49", image: "Qfc.png", availability: "Out of Stock" }, // QFC Out of Stock
+    { company: "Qfc", address: "17847 1st Ave S", city: "Normandy Park", state: "WA", zip: "98148", price: "$6.49", image: "Qfc.png", availability: "In Stock" },
+    { company: "Safeway", address: "200 S 3rd St", city: "Renton", state: "WA", zip: "98057", price: "$6.49", image: "safewayPharmacy.jpg", availability: "Out of Stock" }, // Safeway Out of Stock
+    { company: "Safeway", address: "20830 108th Ave SE", city: "Kent", state: "WA", zip: "98031", price: "$6.49", image: "safewayPharmacy.jpg", availability: "In Stock" },
+    { company: "Safeway", address: "14300 1st Ave S", city: "Burien", state: "WA", zip: "98168", price: "$6.49", image: "safewayPharmacy.jpg", availability: "In Stock" }, // New Safeway Entry
+    { company: "Safeway", address: "1000 164th St SW", city: "Lynnwood", state: "WA", zip: "98087", price: "$6.49", image: "safewayPharmacy.jpg", availability: "In Stock" }, // New Safeway Entry
+    { company: "Safeway", address: "27035 Pacific Hwy S", city: "Des Moines", state: "WA", zip: "98198", price: "$6.49", image: "safewayPharmacy.jpg", availability: "In Stock" }, // New Safeway Entry
+    { company: "Target", address: "301 Strander Blvd", city: "Tukwila", state: "WA", zip: "98188", price: "$4.99", image: "target.jpeg", availability: "In Stock" },
+    { company: "Target", address: "4053 Factoria Square Mall SE", city: "Bellevue", state: "WA", zip: "98006", price: "$4.99", image: "target.jpeg", availability: "In Stock" }, // New Target Entry
+    { company: "Walgreens", address: "25605 104TH AVE SE", city: "Kent", state: "WA", zip: "98030", price: "$6.99", image: "walgreen.jpg", availability: "In Stock" },
+    { company: "Walgreens", address: "6300 E Lake Sammamish Pkwy SE", city: "Issaquah", state: "WA", zip: "98029", price: "$6.99", image: "walgreen.jpg", availability: "In Stock" }, // New Walgreens Entry
+    { company: "Walgreens", address: "3716 S 144th St", city: "Tukwila", state: "WA", zip: "98168", price: "$6.99", image: "walgreen.jpg", availability: "In Stock" }, // New Walgreens Entry
+    { company: "Walmart", address: "743 Rainier Ave S", city: "Renton", state: "WA", zip: "98057", price: "$4.47", image: "walmart.png", availability: "In Stock" },
+    { company: "Walmart", address: "1200 164th St SW", city: "Lynnwood", state: "WA", zip: "98087", price: "$4.47", image: "walmart.png", availability: "In Stock" }, // New Walmart Entry
+    { company: "Walmart", address: "1001 S 336th St", city: "Federal Way", state: "WA", zip: "98003", price: "$4.47", image: "walmart.png", availability: "In Stock" },
+    { company: "Walmart", address: "19205 WA-410", city: "Bonney Lake", state: "WA", zip: "98391", price: "$4.47", image: "walmart.png", availability: "In Stock" }, // New Walmart Entry
+
+  ];
+
+  // Function to generate the HTML for the results
+  function generateResults(filteredData = storeData) {
+    const resultsContainer = document.getElementById("results");
+    resultsContainer.innerHTML = ""; // Clear previous results
+
+    filteredData.forEach((store) => {
+      const availabilityColor = store.availability === "In Stock" ? "green" : "red";
+
+      const resultHTML = `
+        <div class="results-container">
+          <div class="result-rectangle">
+            <div class="store-box">
+              <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/${store.image}" alt="${store.company}">
+            </div>
+            <div class="infoto">
+              <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/ty.jpeg" alt="Tylenol Picture">
+            </div>
+            <div class="location-box">Location: ${store.address}, ${store.city}, ${store.state} ${store.zip}</div>
+            <div class="availability-box" style="color: ${availabilityColor};">Availability: ${store.availability}</div>
+            <div class="medicine-box">Medicine: <span class="medicineCell">Tylenol</span></div>
+            <div class="price-box">Price: ${store.price}</div>
+            <button onclick="addToBookmarks(${JSON.stringify(store).replace(/"/g, '&quot;')})">Bookmark</button>
+          </div>
+        </div>
+      `;
+      resultsContainer.innerHTML += resultHTML;
+    });
+  }
+
+  // Function to add a store to bookmarks
+  function addToBookmarks(store) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    bookmarks.push(store);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    alert('Added to bookmarks!');
+  }
+
+  // Function to filter results based on selected stores
+  function filterResults() {
+    const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
+    const allCheckbox = document.querySelector('#storeCheckboxes input[value="All"]');
+    const selectedStores = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+
+    // If "All" is checked, check all other checkboxes
+    if (allCheckbox.checked) {
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+      });
+      generateResults(); // Show all results
+    } else {
+      // If "All" is unchecked, uncheck it and filter based on other selections
+      const filteredData = storeData.filter((store) => selectedStores.includes(store.company));
+      generateResults(filteredData); // Show filtered results
+    }
+  }
+
+  // Function to handle individual checkbox behavior
+  function handleIndividualCheckbox() {
+    const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
+    const allCheckbox = document.querySelector('#storeCheckboxes input[value="All"]');
+
+    // If any checkbox other than "All" is unchecked, uncheck "All"
+    const otherCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.value !== "All");
+    if (otherCheckboxes.some(checkbox => !checkbox.checked)) {
+      allCheckbox.checked = false;
+    }
+
+    // If all other checkboxes are checked, check "All"
+    if (otherCheckboxes.every(checkbox => checkbox.checked)) {
+      allCheckbox.checked = true;
+    }
+
+    filterResults(); // Update the results
+  }
+
+  // Attach event listeners to checkboxes
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+      if (checkbox.value === "All") {
+        checkbox.addEventListener('change', filterResults); // Handle "All" checkbox
+      } else {
+        checkbox.addEventListener('change', handleIndividualCheckbox); // Handle individual checkboxes
+      }
+    });
+  });
+
+  // Call the function on page load to display all results
+  window.onload = () => generateResults();
+</script>
+
+<script>
+  // Toggle filter popup
+  function toggleFilter() {
+    const filterPopup = document.getElementById('filterPopup');
+    filterPopup.style.display = filterPopup.style.display === 'none' || filterPopup.style.display === '' ? 'block' : 'none';
+  }
+
+  // Close the filter popup when clicking outside of it
+  document.addEventListener('click', function (event) {
+    const filterPopup = document.getElementById('filterPopup');
+    const filterButton = document.querySelector('.filter-icon');
+
+    // Check if the click is outside the filter popup and not on the filter button
+    if (filterPopup.style.display === 'block' && !filterPopup.contains(event.target) && event.target !== filterButton) {
+      filterPopup.style.display = 'none';
+    }
+  });
+
+  // Ensure the filter popup is hidden on page load
+  document.addEventListener('DOMContentLoaded', function () {
+    const filterPopup = document.getElementById('filterPopup');
+    filterPopup.style.display = 'none'; // Explicitly set to 'none' on page load
+  });
+</script>
+
 </body>
 </html>

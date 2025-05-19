@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmarks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .bookmark-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    .bookmark-item button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bookmarked Items</h1>
+  <div id="bookmarksContainer"></div>
+  <script>
+    // Load bookmarks from localStorage
+    function loadBookmarks() {
+      const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      const bookmarksContainer = document.getElementById('bookmarksContainer');
+      bookmarksContainer.innerHTML = '';
+
+      bookmarks.forEach((bookmark, index) => {
+        const bookmarkHTML = `
+          <div class="bookmark-item">
+            <p><strong>Store:</strong> ${bookmark.company}</p>
+            <p><strong>Location:</strong> ${bookmark.address}, ${bookmark.city}, ${bookmark.state} ${bookmark.zip}</p>
+            <p><strong>Price:</strong> ${bookmark.price}</p>
+            <p><strong>Availability:</strong> ${bookmark.availability}</p>
+            <button onclick="removeBookmark(${index})">Remove</button>
+          </div>
+        `;
+        bookmarksContainer.innerHTML += bookmarkHTML;
+      });
+    }
+
+    // Remove a bookmark
+    function removeBookmark(index) {
+      let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      bookmarks.splice(index, 1);
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      loadBookmarks();
+    }
+
+    // Load bookmarks on page load
+    document.addEventListener('DOMContentLoaded', loadBookmarks);
+  </script>
+</body>
+</html>
