@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pharmacy Store Unit Tests</title>
+</head>
+<body>
+  <h1>Pharmacy Store Unit Tests</h1>
+  <pre id="output"></pre>
+
+  <script>
+    // Mock DOM
+    document.body.innerHTML += `
+      <div class="search-bar">
+        <input type="text" id="searchInput" value="" />
+      </div>
+      <div id="filterPopup" style="display: none;"></div>
+    `;
+
+    // Mock localStorage and location
+    const localStorageMock = {
+      store: {},
+      getItem(key) {
+        return this.store[key] || null;
+      },
+      setItem(key, value) {
+        this.store[key] = value.toString();
+      },
+      clear() {
+        this.store = {};
+      }
+    };
+    globalThis.localStorage = localStorageMock;
+    globalThis.location = { href: "" };
+    globalThis.alert = (msg) => log("ALERT: " + msg);
+
+    // Functions under test
+    function handleSearch(input) {
+      const query = input.trim().toLowerCase();
+      if (query.includes("ibuprofen")) {
+        localStorage.setItem("searchQuery", query);
+        location.href = "ireslt.html";
+        return "redirect-ibuprofen";
+      } else if (query.includes("tylenol")) {
+        localStorage.setItem("searchQuery", query);
+        location.href = "results.html";
+        return "redirect-tylenol";
+      } else {
+        alert("Please enter a valid medicine name or code.");
+        return "alert-invalid";
+      }
+    }
+
+    function toggleFilter(currentDisplay) {
+      return currentDisplay === "none" ? "block" : "none";
+    }
+
+    // Logger
+    function log(msg) {
+      document.getElementById("output").textContent += msg + "\n";
+    }
+
+    // Test Class
+    class PharmacyTests {
+      static testHandleSearchIbuprofen() {
+        localStorage.clear();
+        const result = handleSearch("Ibuprofen");
+        const passed = result === "redirect-ibuprofen" &&
+                       localStorage.getItem("searchQuery") === "ibuprofen" &&
+                       location.href === "ireslt.html";
+        log(passed ? "✅ Passed: handleSearch for 'Ibuprofen'" : "❌ Failed: handleSearch for 'Ibuprofen'");
+      }
+
+      static testHandleSearchTylenol() {
+        localStorage.clear();
+        const result = handleSearch("Tylenol");
+        const passed = result === "redirect-tylenol" &&
+                       localStorage.getItem("searchQuery") === "tylenol" &&
+                       location.href === "results.html";
+        log(passed ? "✅ Passed: handleSearch for 'Tylenol'" : "❌ Failed: handleSearch for 'Tylenol'");
+      }
+
+      static testHandleSearchInvalid() {
+        localStorage.clear();
+        const result = handleSearch("invalidInput");
+        const passed = result === "alert-invalid" &&
+                       localStorage.getItem("searchQuery") === null;
+        log(passed ? "✅ Passed: handleSearch for invalid input" : "❌ Failed: handleSearch for invalid input");
+      }
+
+      static testToggleFilter() {
+        const result1 = toggleFilter("none") === "block";
+        const result2 = toggleFilter("block") === "none";
+        log(result1 ? "✅ Passed: toggleFilter shows popup" : "❌ Failed: toggleFilter show");
+        log(result2 ? "✅ Passed: toggleFilter hides popup" : "❌ Failed: toggleFilter hide");
+      }
+
+      static runAllTests() {
+        this.testHandleSearchIbuprofen();
+        this.testHandleSearchTylenol();
+        this.testHandleSearchInvalid();
+        this.testToggleFilter();
+      }
+    }
+
+    // Run tests
+    PharmacyTests.runAllTests();
+  </script>
+</body>
+</html>

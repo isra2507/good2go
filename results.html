@@ -32,13 +32,14 @@
 
     .header-left {
       display: flex;
-      align-items: center;
+      align-items: center; /* Vertically align items */
+      gap: 15px; /* Add spacing between the logos */
     }
 
-    .logo {
-      width: 60px;
-      height: 60px;
-      margin-right: 15px;
+    .header-left img {
+      height: 60px; /* Ensure both logos have the same height */
+      object-fit: contain; /* Maintain aspect ratio */
+      display: block; /* Ensure images do not have extra spacing */
     }
 
     .header-text h1 {
@@ -46,9 +47,20 @@
       font-weight: bold;
     }
 
+    .top-right-buttons {
+      display: flex;
+      gap: 10px; /* Add spacing between buttons */
+      justify-content: flex-end; /* Align buttons to the right */
+      margin-right: 30px; /* Add space from the right edge */
+    }
+    .top-right-buttons:hover {
+    
+      transform: scale(1.05);
+    }
+
     .top-right-buttons button {
-      margin-left: 10px;
-      padding: 10px 20px;
+      margin-left: 0px;
+      padding: 10px 10px;
       font-size: 16px;
       background-color: white;
       color: rgb(51, 129, 194);
@@ -63,6 +75,13 @@
       font-weight: bold;
       margin: 20px 0;
       color: rgb(51, 129, 194);
+    }
+    .zip-code-display input {
+      padding: 5px;
+      font-size: 12px;
+      border: 2px solid rgb(72, 188, 223);
+      border-radius: 2px;
+      outline: none;
     }
 
     .search-bar {
@@ -111,7 +130,7 @@
     .result-rectangle {
       width: 800px;
       height: 200px;
-      background-image: url("C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/tyl.jpeg");
+      
       background-size: cover; /* Ensures the image covers the entire rectangle */
       background-position: center; /* Centers the image */
       background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -160,13 +179,7 @@
       color: green; /* Change color to green */
     }
 
-    .search-bar img {
-    width: 60px; /* Adjust the width to make the image smaller */
-    height: 60px; /* Adjust the height to maintain aspect ratio */
-    margin-left: -10px; /* Move the image slightly to the left */
-    cursor: pointer; /* Ensure the cursor changes to a pointer on hover */
-  }
-
+  
     .medicine-box {
       position: absolute;
       top: 10px;
@@ -243,21 +256,62 @@
       cursor: pointer;
       font-size: 16px;
     }
+
+    /* Add this CSS to style the Bookmark button */
+   
+    .bookmark-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgb(14, 102, 119); /* Blue color */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .bookmark-button:hover {
+      background-color: rgb(41, 109, 174); /* Darker blue on hover */
+    }
+
+    .navigation-buttons {
+      display: flex;
+      gap: 10px;
+      margin: 10px 20px; /* Add spacing from the header */
+      position: fixed; /* Position relative to the page */
+      top: 80px; /* Position below the header */
+      
+      z-index: 1001; /* Ensure it appears above other elements */
+    }
+
+    .navigation-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: rgb(51, 129, 194);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .navigation-buttons button:hover {
+      background-color: rgb(87, 26, 228); /* Darker blue on hover */
+    }
+
+    
   </style>
 </head>
 <body>
   <header>
     <div class="header-left">
       <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/logo.png" alt="Logo" class="logo" onclick="goHome()">
-      <div class="header-text">
-        <h1>
-          <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/goods2go.jpg" alt="Goods2Go" class="logo">
-        </h1>
-      </div>
+      <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/goods2go.jpg" alt="Goods2Go" class="logo">
     </div>
     <div class="top-right-buttons">
       <button onclick="goHome()">🏠 Home</button>
-      <button onclick="window.location.href='bookmarks.html'">🔖 Bookmarks</button>
+      <button onclick="window.location.href='bookmarks.html'">🔖 Bookmarks & 🛒 Checkout</button>
     </div>
   </header>
 
@@ -320,10 +374,10 @@
   <div class="search-bar">
     <input type="text" id="searchInput" list="medicineSuggestions" placeholder="Search for your medicine or enter a code" />
     <datalist id="medicineSuggestions">
+      <option value="Ibuprofen">
       <option value="Ibuprofen Extra Strength">
       <option value="Ibuprofen Cold & Flu Severe">
       <option value="Ibuprofen PM">
-      <option value="iybuprofen Arthritis Pain">
     </datalist>
     <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" alt="Search" onclick="handleSearch()" />
     <button onclick="handleSearch()">Search</button>
@@ -333,6 +387,15 @@
 
   <!-- Results Containers -->
   <div id="results"></div>
+
+  <!-- Navigation Buttons -->
+  <div class="navigation-buttons">
+    <button onclick="goBack()">⬅ Back</button>
+    <button onclick="goForward()">➡ Forward</button>
+  </div>
+
+  <div id="messageContainer" style="display: none; background-color: #4b06cc70; color: rgb(0, 0, 0); padding: 10px; text-align: center; font-size: 16px; position: fixed; top: 15px; left: 0; width: 100%; z-index: 1000;">
+</div>
 
   <script>
     // Load the search query and ZIP code from localStorage and update the page
@@ -347,8 +410,13 @@
 
       // Update the ZIP code display
       document.getElementById('zipCodeDisplay').textContent = zipCode;
-    };
 
+      // Generate results with the full dataset on page load
+      generateResults(storeData);
+    };
+  </script>
+
+  <script>
     // Redirect to the home page
     function goHome() {
       window.location.href = 'index1.html';
@@ -385,12 +453,15 @@
       const selectedStores = Array.from(checkboxes)
         .filter(checkbox => checkbox.checked && checkbox.value !== "All")
         .map(checkbox => checkbox.value);
-
+    
       const minPrice = parseInt(document.getElementById('priceRangeMin').value, 10);
       const maxPrice = parseInt(document.getElementById('priceRangeMax').value, 10);
       const sortBy = document.getElementById('sortBy').value;
       const inStockOnly = document.getElementById('inStockOnly').checked;
-
+    
+      // Get the displayed ZIP code
+      const displayedZipCode = parseInt(document.getElementById('zipCodeDisplay').textContent.trim(), 10);
+    
       // Filter data based on selected stores, price range, and availability
       let filteredData = storeData.filter(store => {
         const price = parseFloat(store.price.replace('$', ''));
@@ -402,23 +473,18 @@
           isInStock
         );
       });
-
-      // Sort data based on the selected sorting option
-      if (sortBy === 'price') {
-        filteredData.sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
-      } else if (sortBy === 'location') {
-        filteredData.sort((a, b) => parseInt(a.zip, 10) - parseInt(b.zip, 10));
-      } else if (sortBy === 'both') {
-        filteredData.sort((a, b) => {
-          const priceDiff = parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', ''));
-          if (priceDiff !== 0) return priceDiff;
-          return parseInt(a.zip, 10) - parseInt(b.zip, 10);
-        });
-      }
-
+    
+      // Sort data based on the difference in ZIP codes
+      filteredData.sort((a, b) => {
+        const zipDiffA = Math.abs(parseInt(a.zip, 10) - displayedZipCode);
+        const zipDiffB = Math.abs(parseInt(b.zip, 10) - displayedZipCode);
+        return zipDiffA - zipDiffB;
+      });
+    
       // Generate results based on the filtered and sorted data
       generateResults(filteredData);
     }
+    
 
     function handleSearch() {
       const searchQuery = document.querySelector('.search-bar input').value.trim().toLowerCase();
@@ -426,7 +492,7 @@
     localStorage.setItem('searchQuery', searchQuery);
     window.location.href = 'ireslt.html';
   } else {
-    alert("Please enter a valid medicine name or code.");
+    showMessage("Please enter a valid medicine name or code.");
   }
     }
     document.addEventListener('DOMContentLoaded', function () {
@@ -449,9 +515,9 @@
       // Save the new ZIP code to localStorage
       localStorage.setItem('zipCode', newZipCode);
 
-      alert(`ZIP Code updated to: ${newZipCode}`);
+      
     } else {
-      alert('Please enter a valid ZIP Code.');
+      showMessage('Please enter a valid ZIP Code.');
     }
   }
 
@@ -494,7 +560,7 @@
 
       const resultHTML = `
         <div class="results-container">
-          <div class="result-rectangle">
+          <div class="result-rectangle" data-zip="${store.zip}" data-company="${store.company}">
             <div class="store-box">
               <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/${store.image}" alt="${store.company}">
             </div>
@@ -505,7 +571,9 @@
             <div class="availability-box" style="color: ${availabilityColor};">Availability: ${store.availability}</div>
             <div class="medicine-box">Medicine: <span class="medicineCell">Tylenol</span></div>
             <div class="price-box">Price: ${store.price}</div>
-            <button onclick="addToBookmarks(${JSON.stringify(store).replace(/"/g, '&quot;')})">Bookmark</button>
+            <div class="bookmark-controls">
+              <button class="bookmark-button" onclick="addToBookmarks(this, ${JSON.stringify(store).replace(/"/g, '&quot;')}, 'Tylenol')">Bookmark</button>
+            </div>
           </div>
         </div>
       `;
@@ -513,71 +581,104 @@
     });
   }
 
-  // Function to add a store to bookmarks
-  function addToBookmarks(store) {
-    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-    bookmarks.push(store);
+  // Function to add a store to bookmarks and update the button
+  function addToBookmarks(button, store, medicine) {
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+  const existingBookmark = bookmarks.find(
+    (item) =>
+      item.zip === store.zip &&
+      item.company === store.company &&
+      item.medicine === medicine // Include medicine in the uniqueness check
+  );
+
+  if (!existingBookmark) {
+    const fullStore = {
+      company: store.company,
+      address: store.address,
+      city: store.city,
+      state: store.state,
+      zip: store.zip,
+      price: store.price,
+      image: store.image,
+      availability: store.availability,
+      quantity: 1,
+      medicine: medicine, // Dynamically set the medicine name
+    };
+    bookmarks.push(fullStore);
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    alert('Added to bookmarks!');
   }
 
-  // Function to filter results based on selected stores
-  function filterResults() {
-    const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
-    const allCheckbox = document.querySelector('#storeCheckboxes input[value="All"]');
-    const selectedStores = Array.from(checkboxes)
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => checkbox.value);
+  // Update the button UI
+  const parent = button.parentElement;
+  parent.innerHTML = `
+    <button onclick="removeBookmark('${store.zip}', '${store.company}', '${medicine}', this)">🗑</button>
+    <button onclick="decrementBookmark('${store.zip}', '${store.company}', '${medicine}', this)">-</button>
+    <span>1</span>
+    <button onclick="incrementBookmark('${store.zip}', '${store.company}', '${medicine}')">+</button>
+  `;
+}
 
-    // If "All" is checked, check all other checkboxes
-    if (allCheckbox.checked) {
-      checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-      });
-      generateResults(); // Show all results
-    } else {
-      // If "All" is unchecked, uncheck it and filter based on other selections
-      const filteredData = storeData.filter((store) => selectedStores.includes(store.company));
-      generateResults(filteredData); // Show filtered results
-    }
-  }
+  // Function to increment the bookmark quantity
+  function incrementBookmark(zip, company) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    const bookmark = bookmarks.find((item) => item.zip === zip && item.company === company);
 
-  // Function to handle individual checkbox behavior
-  function handleIndividualCheckbox() {
-    const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
-    const allCheckbox = document.querySelector('#storeCheckboxes input[value="All"]');
+    if (bookmark) {
+      bookmark.quantity += 1;
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
 
-    // If any checkbox other than "All" is unchecked, uncheck "All"
-    const otherCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.value !== "All");
-    if (otherCheckboxes.some(checkbox => !checkbox.checked)) {
-      allCheckbox.checked = false;
-    }
-
-    // If all other checkboxes are checked, check "All"
-    if (otherCheckboxes.every(checkbox => checkbox.checked)) {
-      allCheckbox.checked = true;
-    }
-
-    filterResults(); // Update the results
-  }
-
-  // Attach event listeners to checkboxes
-  document.addEventListener('DOMContentLoaded', () => {
-    const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
-    checkboxes.forEach(checkbox => {
-      if (checkbox.value === "All") {
-        checkbox.addEventListener('change', filterResults); // Handle "All" checkbox
-      } else {
-        checkbox.addEventListener('change', handleIndividualCheckbox); // Handle individual checkboxes
+      // Update the quantity display
+      const parent = document.querySelector(`.result-rectangle[data-zip="${zip}"][data-company="${company}"] .bookmark-controls`);
+      if (parent) {
+        const quantitySpan = parent.querySelector('span');
+        quantitySpan.textContent = bookmark.quantity;
       }
-    });
-  });
+    }
+  }
 
-  // Call the function on page load to display all results
-  window.onload = () => generateResults();
-</script>
+  // Function to decrement the bookmark quantity
+  function decrementBookmark(zip, company, button) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    const bookmark = bookmarks.find((item) => item.zip === zip && item.company === company);
 
-<script>
+    if (bookmark) {
+      if (bookmark.quantity > 1) {
+        bookmark.quantity -= 1;
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+        // Update the quantity display
+        const parent = button.parentElement;
+        const quantitySpan = parent.querySelector('span');
+        quantitySpan.textContent = bookmark.quantity;
+      } else {
+        removeBookmark(zip, company, button);
+      }
+    }
+  }
+
+  // Function to remove the bookmark
+  function removeBookmark(zip, company, button) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    bookmarks = bookmarks.filter((item) => item.zip !== zip || item.company !== company);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+    // Change the controls back to the "Bookmark" button
+    const parent = button.parentElement;
+    parent.innerHTML = `
+      <button class="bookmark-button" onclick="addToBookmarks(this, {zip: '${zip}', company: '${company}'})">Bookmark</button>
+    `;
+  }
+
+  function showMessage(message) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.style.display = 'block';
+
+    // Automatically hide the message after 5 seconds
+    setTimeout(() => {
+        messageContainer.style.display = 'none';
+    }, 2000);
+}
   // Toggle filter popup
   function toggleFilter() {
     const filterPopup = document.getElementById('filterPopup');
@@ -600,6 +701,18 @@
     const filterPopup = document.getElementById('filterPopup');
     filterPopup.style.display = 'none'; // Explicitly set to 'none' on page load
   });
+</script>
+
+<script>
+    // Navigate to the previous page
+    function goBack() {
+        history.back();
+    }
+
+    // Navigate to the next page
+    function goForward() {
+        history.forward();
+    }
 </script>
 
 </body>

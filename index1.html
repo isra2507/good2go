@@ -16,9 +16,9 @@
   background-size: cover; 
 }
     header {
-  background: linear-gradient(rgb(222, 35, 35),rgb(255, 255, 255));
+  background: linear-gradient(rgb(222, 35, 35),rgba(255, 255, 255, 0));
   color: rgb(0, 0, 0);
-  padding: 30px 20px;
+  padding: 20px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,8 +26,15 @@
 }
     .header-left {
       display: flex;
-      align-items: center;
+      align-items: center; /* Vertically align items */
+      gap: 5px; /* Reduce spacing between the logos */
     }
+    .header-left img {
+    height: 60px; /* Ensure both logos have the same height */
+    object-fit: contain; /* Maintain aspect ratio */
+    display: block; /* Ensure images do not have extra spacing */
+    margin: 0; /* Remove any default margins */
+}
     .logo {
       width: 60px;
       height: 60px;
@@ -45,6 +52,7 @@
     .top-right-buttons {
       display: flex;
       gap: 10px;
+    
     }
     .top-right-buttons button {
       padding: 10px 20px;
@@ -167,14 +175,14 @@
 .about h2 {
   margin-top: 0;
   color: rgb(0, 0, 0);
-  font-family: 'Times New Roman', Times, serif ;
+  font-family: Arial, sans-serif; /* Changed to sans-serif */
   font-style: italic;
   text-align: center;
 }
 
 .about p {
   font-size: 18px;
-  font-family: 'Times New Roman', Times, serif ;
+  font-family: Arial, sans-serif; /* Changed to sans-serif */
   color: #333;
 }
     .filter-popup h3 {
@@ -225,22 +233,48 @@
       }
     }
 
+    .resizable-map {
+  width: 100%;
+  max-width: 800px; /* Set a maximum width for the map */
+  height: 400px; /* Default height */
+  resize: both; /* Allow resizing both horizontally and vertically */
+  overflow: hidden; /* Prevent content overflow when resizing */
+  border: 1px solid rgba(0, 0, 0, 0.5); /* Black border with transparency */
+  margin: 0 auto; /* Center the map container */
+}
+
+  .resizable-map iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove iframe border */
+  }
+
+.map h2 {
+  font-family: Arial, sans-serif; /* Changed to sans-serif */
+  margin-top: -20px; /* Adjust positioning */
+  margin-bottom: 20px; /* Add space below */
+  text-align: center;
+  background: linear-gradient(to bottom, #ffffff, #00a2ff); /* Gradient background */
+  -webkit-background-clip: text; /* Clip the background to the text */
+  -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
+}
+
+.zip-code-button:hover {
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
   </style>
 </head>
 <body>
 
 <header>
   <div class="header-left">
-    <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/logo.png"  sizes="100vw" alt="Logo" class="logo">
-    <div class="header-text">
-      <h1> <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\goods2go.jpg"  sizes="100vw" alt="Logo" class="logo"></h1>
-     <!-- <h2>Motto</h2>!-->
-    </div>
+    <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/logo.png" alt="Logo" class="logo" onclick="goHome()">
+    <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/goods2go.jpg" alt="Goods2Go" class="logo">
   </div>
   <div class="top-right-buttons">
-    <button onclick="showSection('home')">🏠 Home</button>
-    <button onclick="showSection('bookmark')">🔖 Bookmark</button>
-  </div>
+  <button onclick="showSection('home')">🏠 Home</button>
+  <button onclick="window.location.href='bookmarks.html'">🔖 Bookmark</button>
+</div>
 </header>
 
 <button class="filter-icon" onclick="toggleFilter()">☰ ⚙️</button>
@@ -255,26 +289,29 @@
   <input type="range" id="distanceRange" min="0" max="100" step="5" value="50" oninput="updateDistanceRange(this.value)">
   <p>Selected Distance within: <span id="distanceRangeValue">50</span> miles</p>
 
-  <label for="zipCode">ZIP Code:</label>
-  <input type="text" id="zipCode" placeholder="Enter ZIP Code">
-  
   <button onclick="applyFilters()">Apply Filters</button>
 </div>
 
 <div class="search-bar">
   <input type="text" id="searchInput" list="medicineSuggestions" placeholder="Search for your medicine or enter a code" />
   <datalist id="medicineSuggestions">
+    <option value="Tylenol">
+    <option value="Ibuprofen">
     <option value="Tylenol Extra Strength">
     <option value="Tylenol Cold & Flu Severe">
-    <option value="Tylenol">
     <option value="Tylenol Arthritis Pain">
     <option value="Ibuprofen Extra Strength">
     <option value="Ibuprofen Cold & Flu Severe">
-    <option value="Ibuprofen">
     <option value="Ibuprofen Arthritis Pain">
   </datalist>
   <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" alt="Search" onclick="handleSearch()" />
   <button onclick="handleSearch()">Search</button>
+</div>
+
+<div class="zip-code-container" style="text-align: center; margin-bottom: 20px;">
+  <label for="zipCode" style="font-size: 16px; font-weight: bold;">Enter ZIP Code:</label>
+  <input type="text" id="zipCode" placeholder="Enter ZIP Code" style="margin-left: 10px; padding: 10px; font-size: 16px; border: 2px solid #0509ee34; border-radius: 5px;">
+  <button onclick="saveZipCode()" style="margin-left: 10px; padding: 10px 20px; background: linear-gradient(to bottom, #ff0000, #00a2ff);  color: white; border: none; border-radius: 5px; cursor: pointer;" class="zip-code-button">Change ZIP Code</button>
 </div>
 
 <section class="about">
@@ -282,6 +319,23 @@
   <p>Welcome to the Pharmacy Store! We are dedicated to providing you with the best medicines and healthcare products around your vicinity. Our mission is to ensure your health and well-being with an affordable quality and care.</p>
 </section>
 
+<section class="map">
+  <h2>Find Nearby Drug Stores</h2>
+  <div class="resizable-map">
+    <iframe
+      width="100%"
+      height="100%"
+      frameborder="0"
+      scrolling="no"
+      marginheight="0"
+      marginwidth="0"
+      src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=en&amp;q=Seattle+(Drugs%20store)&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+    </iframe>
+  </div>
+</section>
+
+<div id="messageContainer" style="display: none; background-color: #e90e0e4f; color: rgb(0, 0, 0); padding: 10px; text-align: center; font-size: 16px; position: fixed; top: 15px; left: 0; width: 100%; z-index: 1000;">
+</div>
 
 <script>
   
@@ -316,12 +370,12 @@
     const minPrice = document.getElementById('priceRangeMin').value;
     const maxPrice = document.getElementById('priceRangeMax').value;
     const distance = document.getElementById('distanceRange').value;
-    const zipCode = document.getElementById('zipCode').value.trim();
+    const zipCode = document.getElementById('zipCode').value.trim(); // Get ZIP Code from the new location
 
     // Save the ZIP code to localStorage
     localStorage.setItem('zipCode', zipCode);
 
-    alert(`Filters applied:\nPrice: $${minPrice} - $${maxPrice}\nDistance: ${distance} miles\nZIP Code: ${zipCode}`);
+    showMessage(`Filters applied: Price: $${minPrice} - $${maxPrice}, Distance: ${distance} miles, ZIP Code: ${zipCode}`);
   }
   function handleSearch() {
   const searchQuery = document.querySelector('.search-bar input').value.trim();
@@ -348,7 +402,7 @@ document.querySelector('.search-bar input').addEventListener('keydown', function
     const popup = document.getElementById('filterPopup');
     popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
   } else {
-    alert(`Navigating to ${sectionId} section.`);
+    showMessage(`Navigating to ${sectionId} section.`);
     
   }
 }
@@ -367,7 +421,7 @@ function handleSearch() {
     localStorage.setItem('searchQuery', searchQuery);
     window.location.href = 'ireslt.html';
   } else {
-    alert("Please enter a valid medicine name or code.");
+    showMessage("Please enter a valid medicine name or code.");
   }
 }
   
@@ -381,6 +435,31 @@ function handleSearch() {
       }
     });
   });
+</script>
+
+<script>
+function showMessage(message) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.style.display = 'block';
+
+    // Automatically hide the message after 5 seconds
+    setTimeout(() => {
+        messageContainer.style.display = 'none';
+    }, 2000);
+}
+</script>
+
+<script>
+function saveZipCode() {
+    const zipCode = document.getElementById('zipCode').value.trim();
+    if (zipCode) {
+        localStorage.setItem('zipCode', zipCode);
+        showMessage(`ZIP Code updated to: ${zipCode}`);
+    } else {
+        showMessage("Please enter a valid ZIP Code.");
+    }
+}
 </script>
 
 </body>

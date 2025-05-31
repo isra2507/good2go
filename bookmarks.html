@@ -7,13 +7,96 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      margin: 0;
+      padding: 0;
+      background-image: url('bookmarkbcg2.webp'); /* Set the background image */
+      background-size: cover; /* Ensure the image covers the entire page */
+      background-repeat: no-repeat; /* Prevent the image from repeating */
+      background-attachment: fixed; /* Make the background sticky */
+      background-position: center; /* Center the image */
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(61, 142, 64, 1), rgba(61, 142, 64, 0)); /* Gradient fade effect */
+      color: white;
+      padding: 10px 20px;
+      border: none; /* Remove any border */
+      box-shadow: none; /* Remove box shadow */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+    .header-left img {
+      height: 50px;
+      margin-right: 10px; /* Add spacing between logo and Good2Go image */
+    }
+    /* Home and Bookmarks & Checkout Buttons */
+    .top-right-buttons {
+      display: flex;
+      gap: 10px; /* Add spacing between the buttons */
+    }
+
+    .home-button, .top-right-buttons button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 16px; /* Slightly increase font size */
+      padding: 8px 15px; /* Adjust padding for a balanced size */
+      border-radius: 6px; /* Slightly rounder corners */
+      border: 1px solid #007bff; /* Thinner border */
+      transition: background-color 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+
+    .home-button:hover, .top-right-buttons button:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .home-button span {
+      margin-right: 5px; /* Add spacing between the icon and text */
+    }
+    #bookmarksContainer {
+      width: 80%; /* Adjust width as needed */
+      max-width: 800px;
+      margin: 20px auto; /* Center the container horizontally */
     }
     .bookmark-item {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.5); /* Semi-transparent border */
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+      backdrop-filter: blur(10px); /* Apply blur to the background behind the container */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .bookmark-image {
+      width: 120px;
+      height: 120px;
+      background-size: contain; /* Ensure the entire image is visible */
+      background-repeat: no-repeat; /* Prevent the image from repeating */
+      background-position: center; /* Center the image within the square */
+      border-radius: 10px;
+      margin-right: 20px; /* Add space between the image and the text */
+    }
+    .bookmark-item-content {
+      flex: 1; /* Take up remaining space */
+    }
+    .bookmark-item-content p {
+      margin: 10px 0; /* Add spacing between paragraphs */
+      color: rgb(0, 0, 0); /* Ensure text is readable on transparent background */
     }
     .bookmark-item button {
       background-color: red;
@@ -22,12 +105,78 @@
       padding: 5px 10px;
       cursor: pointer;
       border-radius: 3px;
+      margin-top: 10px; /* Add spacing above the button */
+    }
+
+    .bookmark-item button:hover {
+      background-color: darkred; /* Darker red on hover for Remove button */
+    }
+
+    .bookmark-item .checkout-button {
+      background-color: rgb(10, 60, 134); /* Blue background for Checkout button */
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      margin-top: 10px; /* Add spacing above the button */
+      margin-left: 10px; /* Add spacing between Remove and Checkout buttons */
+    }
+
+    .bookmark-item .checkout-button:hover {
+      background-color: rgb(8, 126, 155); /* Different blue on hover for Checkout button */
+    }
+   
+    .out-of-stock {
+      color: red;
+      font-weight: bold;
+    }
+
+    /* Back and Forward Arrows */
+    .navigation-buttons {
+      display: flex;
+      gap: 10px;
+      margin: 10px 20px; /* Add spacing from the header */
+      position: fixed; /* Ensure they are positioned relative to the page */
+      top: 70px; /* Position below the header */
+      z-index: 1000; /* Ensure they appear above other elements */
+    }
+
+    .navigation-buttons button {
+      padding: 8px 15px; /* Adjust padding for a balanced size */
+      font-size: 14px; /* Slightly smaller font size */
+      background-color: rgb(34, 189, 80); /* Green background */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      
+     
+    }
+
+    .navigation-buttons button:hover {
+      background-color: rgb(41, 109, 174); /* Darker blue on hover */
     }
   </style>
 </head>
 <body>
-  <h1>Bookmarked Items</h1>
+  <header>
+    <div class="header-left">
+        <img src="logo.png" alt="Logo" class="logo" onclick="goHome()">
+        <img src="goods2go.jpg" alt="Goods2Go" class="logo">
+    </div>
+    <div class="top-right-buttons">
+        <button onclick="window.location.href='index1.html'">🏠 Home</button>
+        <button onclick="window.location.href='checkout.html'">🔖 Bookmarks & 🛒 Checkout</button>
+    </div>
+  </header>
   <div id="bookmarksContainer"></div>
+  <!-- Navigation Buttons -->
+  <div class="navigation-buttons">
+    <button onclick="goBack()">⬅ Back</button>
+    <button onclick="goForward()">➡ Forward</button>
+  </div>
   <script>
     // Load bookmarks from localStorage
     function loadBookmarks() {
@@ -36,25 +185,110 @@
       bookmarksContainer.innerHTML = '';
 
       bookmarks.forEach((bookmark, index) => {
+        const mapSrc = `https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=en&amp;q=${encodeURIComponent(
+          bookmark.address + ', ' + bookmark.city + ', ' + bookmark.state + ' ' + bookmark.zip
+        )}&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`;
+
+        const availabilityClass = bookmark.availability === 'Out of Stock' ? 'out-of-stock' : '';
+
         const bookmarkHTML = `
           <div class="bookmark-item">
-            <p><strong>Store:</strong> ${bookmark.company}</p>
-            <p><strong>Location:</strong> ${bookmark.address}, ${bookmark.city}, ${bookmark.state} ${bookmark.zip}</p>
-            <p><strong>Price:</strong> ${bookmark.price}</p>
-            <p><strong>Availability:</strong> ${bookmark.availability}</p>
-            <button onclick="removeBookmark(${index})">Remove</button>
+            <div class="bookmark-image" style="background-image: url('${bookmark.image}');"></div>
+            <div class="bookmark-item-content">
+              <p><strong>Store:</strong> ${bookmark.company}</p>
+              <p><strong>Location:</strong> ${bookmark.address}, ${bookmark.city}, ${bookmark.state} ${bookmark.zip}</p>
+              <p><strong>Price:</strong> ${bookmark.price}</p>
+              <p><strong>Availability:</strong> <span class="${availabilityClass}">${bookmark.availability}</span></p>
+              <p><strong>Quantity:</strong> <span id="quantity-${index}">${bookmark.quantity}</span>
+                <button onclick="editQuantity(${index})">Edit</button>
+              </p>
+              <div id="edit-controls-${index}" style="display: none;">
+                <button onclick="updateQuantity(${index}, -1)">-</button>
+                <button onclick="updateQuantity(${index}, 1)">+</button>
+              </div>
+              <p><strong>Medicine:</strong> ${bookmark.medicine}</p>
+              <button onclick="removeBookmark('${bookmark.zip}', '${bookmark.company}', '${bookmark.medicine}', this)">Remove</button>
+              <button class="checkout-button" onclick="goToCheckout('${bookmark.company}', ${bookmark.quantity}, '${bookmark.availability}')">Check out</button>
+            </div>
+            <div class="bookmark-map">
+              <iframe
+                width="100%"
+                height="200"
+                frameborder="0"
+                scrolling="no"
+                marginheight="0"
+                marginwidth="0"
+                src="${mapSrc}">
+              </iframe>
+            </div>
           </div>
         `;
         bookmarksContainer.innerHTML += bookmarkHTML;
       });
     }
 
-    // Remove a bookmark
-    function removeBookmark(index) {
-      let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-      bookmarks.splice(index, 1);
+    // Edit quantity
+    function editQuantity(index) {
+      const controls = document.getElementById(`edit-controls-${index}`);
+      controls.style.display = controls.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Update quantity
+    function updateQuantity(index, change) {
+      const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      bookmarks[index].quantity = Math.max(0, bookmarks[index].quantity + change); // Prevent negative quantity
       localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
       loadBookmarks();
+    }
+
+    // Remove a bookmark
+    function removeBookmark(zip, company, medicine, button) {
+      let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+      bookmarks = bookmarks.filter(
+        (item) =>
+          item.zip !== zip || item.company !== company || item.medicine !== medicine
+      );
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+      loadBookmarks();
+    }
+
+    // Redirect to checkout.html
+    function goToCheckout(storeName, quantity, availability) {
+      if (availability === 'Out of Stock') {
+        showNotification('This item is out of stock and cannot be checked out.');
+        return;
+      }
+      localStorage.setItem('selectedStore', storeName);
+      localStorage.setItem('selectedQuantity', quantity);
+      window.location.href = 'checkout.html';
+    }
+
+    // Show notification
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      notification.style.position = 'fixed';
+      notification.style.bottom = '20px';
+      notification.style.right = '20px';
+      notification.style.backgroundColor = 'red';
+      notification.style.color = 'white';
+      notification.style.padding = '10px 20px';
+      notification.style.borderRadius = '5px';
+      notification.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000); // Remove notification after 3 seconds
+    }
+
+    // Navigation functions
+    function goBack() {
+        history.back();
+    }
+
+    function goForward() {
+        history.forward();
     }
 
     // Load bookmarks on page load

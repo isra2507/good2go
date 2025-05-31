@@ -9,7 +9,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-image: url("ibp2.jpg");
+      background-image: url("ibp3.jpg");
       background-blend-mode: lighten;
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -18,9 +18,9 @@
     }
 
     header {
-      background: linear-gradient(rgb(117, 72, 223), rgb(51, 129, 194));
+      background: linear-gradient(rgb(117, 72, 223), rgba(51, 130, 194, 0));
       color: rgb(0, 0, 0);
-      padding: 15px 20px;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -30,50 +30,53 @@
       z-index: 1000; /* Ensure it stays above other elements */
     }
 
-   
-  .search-bar img {
-    width: 60px; /* Adjust the width to make the image smaller */
-    height: 60px; /* Adjust the height to maintain aspect ratio */
-    margin-left: -10px; /* Move the image slightly to the left */
-    cursor: pointer; /* Ensure the cursor changes to a pointer on hover */
-  }
-
-
-
     .header-left {
       display: flex;
-      align-items: center;
+      align-items: center; /* Vertically align items */
+      gap: 15px; /* Add spacing between the logos */
     }
 
-    .logo {
-      width: 60px;
-      height: 60px;
-      margin-right: 15px;
+    .header-left img {
+      height: 60px; /* Ensure both logos have the same height */
+      object-fit: contain; /* Maintain aspect ratio */
+      display: block; /* Ensure images do not have extra spacing */
     }
 
-    .header-text h1 {
-      margin: 0;
-      font-weight: bold;
+    .top-right-buttons {
+      display: flex;
+      gap: 10px; /* Add spacing between buttons */
+      justify-content: flex-end; /* Align buttons to the right */
+      margin-right: 30px; /* Add space from the right edge */
     }
-
+    .top-right-buttons:hover {
+    
+    transform: scale(1.05);
+  }
     .top-right-buttons button {
-      margin-left: 10px;
-      padding: 10px 20px;
+      margin-left: 0px;
+      padding: 10px 10px;
       font-size: 16px;
       background-color: white;
-      color: rgb(117, 72, 223);
-      border: 1px solid rgb(117, 72, 223);
+      color: rgb(51, 129, 194);
+      border: 1px solid rgb(51, 129, 194);
       border-radius: 5px;
       cursor: pointer;
     }
 
     .zip-code-display {
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  margin: 40px 0; /* Increased the top and bottom margin */
-  color: rgb(117, 72, 223);
-}
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: rgb(117, 72, 223);
+    }
+    .zip-code-display input {
+      padding: 5px;
+      font-size: 12px;
+      border: 2px solid rgb(117, 72, 223);
+      border-radius: 2px;
+      outline: none;
+    }
 
     .search-bar {
       display: flex;
@@ -103,18 +106,25 @@
       cursor: pointer;
     }
 
+    .search-bar img {
+    display: flex;
+    width: 60px; /* Adjust the width to make the image smaller */
+    height: 60px; /* Adjust the height to maintain aspect ratio */
+    margin-left: 10px; /* Move the image slightly to the left */
+    cursor: pointer; /* Ensure the cursor changes to a pointer on hover */
+  }
     .results-container {
       width: 90%;
       margin: 20px auto;
       display: flex;
       justify-content: center;
       align-items: center;
-    } 
+    }
 
     .result-rectangle {
       width: 800px;
       height: 200px;
-      background-image: url("ibp.jpeg");
+   
       background-size: cover; /* Ensures the image covers the entire rectangle */
       background-position: center; /* Centers the image */
       background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -138,7 +148,7 @@
       left: 10px;
       transform: translateY(-50%);
       font-weight: bold;
-      color: rgb(44, 42, 215);
+      color: rgb(42, 180, 215);
       border: 1px solid rgb(44, 42, 215);
       padding: 10px;
       background-color: #f9f9f9;
@@ -147,10 +157,12 @@
 
     .location-box {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 50%;
+      left: 75%;
+      transform: translate(-50%, -50%);
       font-weight: bold;
-      color: rgb(44, 42, 215);
+      color: rgb(42, 180, 215);
+      text-align: center;
     }
 
     .availability-box {
@@ -158,16 +170,17 @@
       bottom: 10px;
       right: 10px;
       font-weight: bold;
-      color: rgb(44, 42, 215);
+      color: green; /* Change color to green */
     }
 
+  
     .medicine-box {
       position: absolute;
       top: 10px;
       left: 50%;
       transform: translateX(-50%);
       font-weight: bold;
-      color: rgb(44, 42, 215);
+      color: rgb(42, 180, 215);
     }
 
     .price-box {
@@ -176,7 +189,7 @@
       left: 50%;
       transform: translateX(-50%);
       font-weight: bold;
-      color: rgb(44, 42, 215);
+      color: rgb(42, 180, 215);
     }
 
     .infoto {
@@ -237,21 +250,73 @@
       cursor: pointer;
       font-size: 16px;
     }
+
+    /* Add this CSS to style the Bookmark button */
+    .bookmark-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgb(14, 102, 119); /* Blue color */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .bookmark-button:hover {
+      background-color: rgb(41, 109, 174); /* Darker blue on hover */
+    }
+
+    /* Highlight text inside the container */
+
+.result-rectangle .location-box,
+.result-rectangle .availability-box,
+.result-rectangle .medicine-box,
+.result-rectangle .price-box {
+    background-color: rgba(17, 1, 1, 0.212); /* Semi-transparent white background */
+    padding: 5px 10px; /* Add padding around the text */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    display: inline-block; /* Ensure the background only wraps around the text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add subtle shadow for better contrast */
+}
+
+.navigation-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 10px 20px; /* Add spacing from the header */
+    position: fixed; /* Position relative to the page */
+    top: 80px; /* Position below the header */
+    
+    z-index: 1001; /* Ensure it appears above other elements */
+}
+
+.navigation-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(86, 33, 184);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+    background-color: rgb(25, 169, 226); /* Darker blue on hover */
+}
   </style>
 </head>
 <body>
   <header>
     <div class="header-left">
       <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/logo.png" alt="Logo" class="logo" onclick="goHome()">
-      <div class="header-text">
-        <h1>
-          <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/goods2go.jpg" alt="Goods2Go" class="logo">
-        </h1>
-      </div>
+      <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/goods2go.jpg" alt="Goods2Go" class="logo">
     </div>
     <div class="top-right-buttons">
       <button onclick="goHome()">🏠 Home</button>
-      <button onclick="alert('Bookmark feature coming soon!')">🔖 Bookmark</button>
+      <button onclick="window.location.href='bookmarks.html'">🔖 Bookmarks & 🛒 Checkout</button>
     </div>
   </header>
 
@@ -262,34 +327,22 @@
     <button onclick="changeZipCode()">Change ZIP Code</button>
   </div>
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" list="medicineSuggestions" placeholder="Search for your medicine or enter a code" />
-    <datalist id="medicineSuggestions">
-        <option value="Tylenol Extra Strength">
-        <option value="Tylenol Cold & Flu Severe">
-        <option value="Tylenol">
-        <option value="Tylenol Arthritis Pain">
-    </datalist>
-    <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" alt="Search" onclick="handleSearch()" />
-    <button onclick="handleSearch()">Search</button>
-    <button class="filter-icon" onclick="toggleFilter()">☰ Filter</button>
-  </div>
-
-
   <!-- Filter Popup -->
   <div class="filter-popup" id="filterPopup">
     <h3>Filters</h3>
 
     <!-- Store Selection -->
-    <label for="storeSelect">Choose 1 Store:</label>
-    <select id="storeSelect">
-      <option value="Rite-Aid">Rite-Aid</option>
-      <option value="Walgreens">Walgreens</option>
-      <option value="Safeway Pharmacy">Safeway Pharmacy</option>
-      <option value="Qfc Pharmacy">Qfc Pharmacy</option>
-      <option value="CVS">CVS</option>
-      <option value="Bartell Drugs">Bartell Drugs</option>
-    </select>
+    <label>Choose Stores:</label>
+    <div id="storeCheckboxes">
+      <label><input type="checkbox" value="All" onchange="filterResults()"> All</label><br>
+      <label><input type="checkbox" value="CVS" onchange="filterResults()"> CVS</label><br>
+      <label><input type="checkbox" value="Fred Meyer" onchange="filterResults()"> Fred Meyer</label><br>
+      <label><input type="checkbox" value="Qfc" onchange="filterResults()"> Qfc</label><br>
+      <label><input type="checkbox" value="Safeway" onchange="filterResults()"> Safeway</label><br>
+      <label><input type="checkbox" value="Target" onchange="filterResults()"> Target</label><br>
+      <label><input type="checkbox" value="Walgreens" onchange="filterResults()"> Walgreens</label><br>
+      <label><input type="checkbox" value="Walmart" onchange="filterResults()"> Walmart</label><br>
+    </div>
     <br><br>
 
     <!-- Distance Range -->
@@ -305,100 +358,49 @@
     <p>Selected Price: <span id="priceLabel">$0 - $1000</span></p>
     <br>
 
+    <!-- Sorting Options -->
+    <label for="sortBy">Sort By:</label>
+    <select id="sortBy">
+      <option value="none">None</option>
+      <option value="price">Price</option>
+      <option value="location">Location (ZIP Code)</option>
+      <option value="both">Price & Location</option>
+    </select>
+    <br><br>
+
+    <!-- Availability Filter -->
+    <label><input type="checkbox" id="inStockOnly" onchange="applyFilters()"> In Stock Only</label>
+    <br><br>
+
     <button onclick="applyFilters()">Apply Filters</button>
   </div>
 
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" list="medicineSuggestions" placeholder="Search for your medicine or enter a code" />
+    <datalist id="medicineSuggestions">
+      <option value="Tylenol">
+      <option value="Tylenol Extra Strength">
+        <option value="Tylenol Cold & Flu Severe">
+        <option value="Tylenol Arthritis Pain">
+    </datalist>
+    <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" alt="Search" onclick="handleSearch()" />
+    <button onclick="handleSearch()">Search</button>
+    <button class="filter-icon" onclick="toggleFilter()">☰ Filter</button>
+  </div>
+
+
   <!-- Results Containers -->
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/cvs.jpeg" alt="CVS">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ibp.jpg" alt="ibuprofen">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
+  <div id="results"></div>
+
+  <!-- Navigation Buttons -->
+  <div class="navigation-buttons">
+    <button onclick="goBack()">⬅ Back</button>
+    <button onclick="goForward()">➡ Forward</button>
   </div>
 
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/walgreen.jpg" alt="Walgreens">
-      </div>
-      <div class="infoto">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\ibp.jpg" alt="ibuprofen">
-     </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-  <!-- Add 3 more empty results containers -->
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\RiteAid.png" alt="RiteAid">
-      </div>
-      <div class="infoto">
-        <img src="ibp.jpg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\bartellDrugs.webp" alt="BartellDrugs">
-      </div>
-      <div class="infoto">
-        <img src="ibp.jpg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\safewayPharmacy.jpg" alt="Safeway">
-      </div>
-      <div class="infoto">
-        <img src="ibp.jpg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
-  </div>
-
-  <div class="results-container">
-    <div class="result-rectangle">
-      <div class="store-box">
-        <img src="C:\Users\isras\OneDrive\Desktop\Bellevue College\Spring 2025\CS 410 Software engineering\Final\Qfc.png" alt="Qfc">
-      </div>
-      <div class="infoto">
-        <img src="ibp.jpg" alt="Tylenol Picture">
-      </div>
-      <div class="location-box">Location: N/A</div>
-      <div class="availability-box">Availability: N/A</div>
-      <div class="medicine-box">Medicine: <span class="medicineCell">N/A</span></div>
-      <div class="price-box">Price: N/A</div>
-    </div>
+  <!-- Message Container -->
+  <div id="messageContainer" style="display: none; background-color: #0e73b66b; color: black; padding: 10px; text-align: center; font-size: 16px; position: fixed; top: 15px; left: 0; width: 100%; z-index: 1000;">
   </div>
 
   <script>
@@ -414,8 +416,13 @@
 
       // Update the ZIP code display
       document.getElementById('zipCodeDisplay').textContent = zipCode;
-    };
 
+      // Generate results with the full dataset on page load
+      generateResults(storeData);
+    };
+  </script>
+
+  <script>
     // Redirect to the home page
     function goHome() {
       window.location.href = 'index1.html';
@@ -424,17 +431,30 @@
     // Handle search
     function handleSearch() {
       const searchQuery = document.querySelector('.search-bar input').value.trim().toLowerCase();
+      console.log("Search Query:", searchQuery);
 
       if (searchQuery.includes("tylenol")) {
+        console.log("Redirecting to results.html");
         localStorage.setItem('searchQuery', searchQuery);
         window.location.href = 'results.html';
       } else if (searchQuery.includes("ibuprofen")) {
+        console.log("Redirecting to ireslt.html");
         localStorage.setItem('searchQuery', searchQuery);
         window.location.href = 'ireslt.html';
       } else {
-        alert("Please enter a valid medicine name or code.");
+        console.log("Invalid search query");
+        showMessage("Please enter a valid medicine name or code.");
       }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.querySelector('.search-bar input');
+      searchInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          handleSearch();
+        }
+      });
+    });
 
     // Toggle filter popup (placeholder function)
     function toggleFilter() {
@@ -456,28 +476,258 @@
 
     // Apply filters (placeholder function)
     function applyFilters() {
-      alert('Filters applied!');
+      const checkboxes = document.querySelectorAll('#storeCheckboxes input[type="checkbox"]');
+      const selectedStores = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked && checkbox.value !== "All")
+        .map(checkbox => checkbox.value);
+
+      const minPrice = parseInt(document.getElementById('priceRangeMin').value, 10);
+      const maxPrice = parseInt(document.getElementById('priceRangeMax').value, 10);
+      const sortBy = document.getElementById('sortBy').value;
+      const inStockOnly = document.getElementById('inStockOnly').checked;
+
+      // Get the displayed ZIP code
+      const displayedZipCode = parseInt(document.getElementById('zipCodeDisplay').textContent.trim(), 10);
+
+      // Filter data based on selected stores, price range, and availability
+      let filteredData = storeData.filter(store => {
+        const price = parseFloat(store.price.replace('$', ''));
+        const isInStock = !inStockOnly || store.availability === "In Stock";
+        return (
+          (selectedStores.length === 0 || selectedStores.includes(store.company)) &&
+          price >= minPrice &&
+          price <= maxPrice &&
+          isInStock
+        );
+      });
+
+      // Sort data based on the difference in ZIP codes
+      filteredData.sort((a, b) => {
+        const zipDiffA = Math.abs(parseInt(a.zip, 10) - displayedZipCode);
+        const zipDiffB = Math.abs(parseInt(b.zip, 10) - displayedZipCode);
+        return zipDiffA - zipDiffB;
+      });
+
+      // Generate results based on the filtered and sorted data
+      generateResults(filteredData);
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      const searchInput = document.querySelector('.search-bar input');
-      searchInput.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-          handleSearch(); // Call the handleSearch function when Enter is pressed
-        }
-      });
+    const searchInput = document.querySelector('.search-bar input');
+    searchInput.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        handleSearch();
+      }
     });
+  });
 
-    // Change ZIP code
-    function changeZipCode() {
-      const newZipCode = document.getElementById('zipCodeInput').value.trim();
-      if (newZipCode) {
-        localStorage.setItem('zipCode', newZipCode);
-        document.getElementById('zipCodeDisplay').textContent = newZipCode;
-      } else {
-        alert("Please enter a valid ZIP code.");
+  // Function to change the ZIP code
+  function changeZipCode() {
+    const newZipCode = document.getElementById('zipCodeInput').value.trim();
+
+    if (newZipCode) {
+      // Update the ZIP code display
+      document.getElementById('zipCodeDisplay').textContent = newZipCode;
+
+      // Save the new ZIP code to localStorage
+      localStorage.setItem('zipCode', newZipCode);
+
+      
+    } else {
+      showMessage('Please enter a valid ZIP Code.');
+    }
+  }
+
+  // Updated data for the container boxes with specific availability
+  const storeData = [
+  { company: "CVS", address: "10712 SE Carr Rd", city: "Renton", state: "WA", zip: "98055", price: "$11.99", image: "cvs.jpeg", availability: "In Stock" },
+  { company: "CVS", address: "107 Bellevue Way", city: "Bellevue", state: "WA", zip: "98004", price: "$11.99", image: "cvs.jpeg", availability: "Out of Stock" },
+  { company: "CVS", address: "33520 21st Ave SW", city: "Federal Way", state: "WA", zip: "98023", price: "$11.99", image: "cvs.jpeg", availability: "In Stock" },
+  { company: "Fred Meyer", address: "17801 108th Ave SE", city: "Renton", state: "WA", zip: "98055", price: "$10.99", image: "fred_meyer.jpg", availability: "Out of Stock" },
+  { company: "Fred Meyer", address: "14300 1St Ave S", city: "Burien", state: "WA", zip: "98168", price: "$10.99", image: "fred_meyer.jpg", availability: "In Stock" },
+  { company: "Fred Meyer", address: "14300 1st Ave S", city: "Burien", state: "WA", zip: "98168", price: "$10.99", image: "fred_meyer.jpg", availability: "In Stock" },
+  { company: "Qfc", address: "4800 NE 4th St", city: "Renton", state: "WA", zip: "98059", price: "$12.99", image: "Qfc.png", availability: "In Stock" },
+  { company: "Qfc", address: "17847 1st Ave S", city: "Normandy Park", state: "WA", zip: "98148", price: "$12.99", image: "Qfc.png", availability: "In Stock" },
+  { company: "Safeway", address: "200 S 3rd St", city: "Renton", state: "WA", zip: "98057", price: "$13.49", image: "safewayPharmacy.jpg", availability: "Out of Stock" },
+  { company: "Safeway", address: "20830 108th Ave SE", city: "Kent", state: "WA", zip: "98031", price: "$13.49", image: "safewayPharmacy.jpg", availability: "In Stock" },
+  { company: "Safeway", address: "27035 Pacific Hwy S", city: "Des Moines", state: "WA", zip: "98198", price: "$13.49", image: "safewayPharmacy.jpg", availability: "In Stock" },
+  { company: "Target", address: "301 Strander Blvd", city: "Tukwila", state: "WA", zip: "98188", price: "$9.99", image: "target.jpeg", availability: "In Stock" },
+  { company: "Target", address: "4053 Factoria Square Mall SE", city: "Bellevue", state: "WA", zip: "98006", price: "$9.99", image: "target.jpeg", availability: "In Stock" },
+  { company: "Walgreens", address: "25605 104TH AVE SE", city: "Kent", state: "WA", zip: "98030", price: "$12.49", image: "walgreen.jpg", availability: "In Stock" },
+  { company: "Walgreens", address: "6300 E Lake Sammamish Pkwy SE", city: "Issaquah", state: "WA", zip: "98029", price: "$12.49", image: "walgreen.jpg", availability: "In Stock" },
+  { company: "Walgreens", address: "3716 S 144th St", city: "Tukwila", state: "WA", zip: "98168", price: "$12.49", image: "walgreen.jpg", availability: "In Stock" },
+  { company: "Walmart", address: "743 Rainier Ave S", city: "Renton", state: "WA", zip: "98057", price: "$9.88", image: "walmart.png", availability: "In Stock" },
+  { company: "Walmart", address: "15063 Main St", city: "Bellevue", state: "WA", zip: "98007", price: "$9.88", image: "walmart.png", availability: "In Stock" },
+  { company: "Walmart", address: "19205 WA-410", city: "Bonney Lake", state: "WA", zip: "98391", price: "$9.88", image: "walmart.png", availability: "In Stock" }
+];
+
+  // Function to generate the HTML for the results
+  function generateResults(filteredData = storeData) {
+    const resultsContainer = document.getElementById("results");
+    resultsContainer.innerHTML = ""; // Clear previous results
+
+    filteredData.forEach((store) => {
+      const availabilityColor = store.availability === "In Stock" ? "green" : "red";
+
+      const resultHTML = `
+        <div class="results-container">
+          <div class="result-rectangle" data-zip="${store.zip}" data-company="${store.company}">
+            <div class="store-box">
+              <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/${store.image}" alt="${store.company}">
+            </div>
+            <div class="infoto">
+              <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/ibp.jpg" alt="ibuprofen Picture">
+            </div>
+            <div class="location-box">Location: ${store.address}, ${store.city}, ${store.state} ${store.zip}</div>
+            <div class="availability-box" style="color: ${availabilityColor};">Availability: ${store.availability}</div>
+            <div class="medicine-box">Medicine: <span class="medicineCell">Ibuprofen</span></div>
+            <div class="price-box">Price: ${store.price}</div>
+            <div class="bookmark-controls">
+              <button class="bookmark-button" onclick="addToBookmarks(this, ${JSON.stringify(store).replace(/"/g, '&quot;')}, 'Ibuprofen')">Bookmark</button>
+            </div>
+          </div>
+        </div>
+      `;
+      resultsContainer.innerHTML += resultHTML;
+    });
+  }
+
+  // Function to add a store to bookmarks and update the button
+  function addToBookmarks(button, store, medicine) {
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+  const existingBookmark = bookmarks.find(
+    (item) =>
+      item.zip === store.zip &&
+      item.company === store.company &&
+      item.medicine === medicine // Include medicine in the uniqueness check
+  );
+
+  if (!existingBookmark) {
+    const fullStore = {
+      company: store.company,
+      address: store.address,
+      city: store.city,
+      state: store.state,
+      zip: store.zip,
+      price: store.price,
+      image: store.image,
+      availability: store.availability,
+      quantity: 1,
+      medicine: medicine, // Dynamically set the medicine name
+    };
+    bookmarks.push(fullStore);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  }
+
+  // Update the button UI
+  const parent = button.parentElement;
+  parent.innerHTML = `
+    <button onclick="removeBookmark('${store.zip}', '${store.company}', '${medicine}', this)">🗑</button>
+    <button onclick="decrementBookmark('${store.zip}', '${store.company}', '${medicine}', this)">-</button>
+    <span>1</span>
+    <button onclick="incrementBookmark('${store.zip}', '${store.company}', '${medicine}')">+</button>
+  `;
+}
+
+  // Function to increment the bookmark quantity
+  function incrementBookmark(zip, company, medicine) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    const bookmark = bookmarks.find((item) => item.zip === zip && item.company === company && item.medicine === medicine);
+
+    if (bookmark) {
+      bookmark.quantity += 1;
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+      // Update the quantity display
+      const parent = document.querySelector(`.result-rectangle[data-zip="${zip}"][data-company="${company}"] .bookmark-controls`);
+      if (parent) {
+        const quantitySpan = parent.querySelector('span');
+        quantitySpan.textContent = bookmark.quantity;
       }
     }
+  }
+
+  // Function to decrement the bookmark quantity
+  function decrementBookmark(zip, company, medicine, button) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    const bookmark = bookmarks.find((item) => item.zip === zip && item.company === company && item.medicine === medicine);
+
+    if (bookmark) {
+      if (bookmark.quantity > 1) {
+        bookmark.quantity -= 1;
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+        // Update the quantity display
+        const parent = button.parentElement;
+        const quantitySpan = parent.querySelector('span');
+        quantitySpan.textContent = bookmark.quantity;
+      } else {
+        removeBookmark(zip, company, medicine, button);
+      }
+    }
+  }
+
+  // Function to remove the bookmark
+  function removeBookmark(zip, company, medicine, button) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    bookmarks = bookmarks.filter((item) => item.zip !== zip || item.company !== company || item.medicine !== medicine);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+
+    // Change the controls back to the "Bookmark" button
+    const parent = button.parentElement;
+    parent.innerHTML = `
+      <button class="bookmark-button" onclick="addToBookmarks(this, {zip: '${zip}', company: '${company}'}, '${medicine}')">Bookmark</button>
+    `;
+  }
+
+  function showMessage(message) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.style.display = 'block';
+
+    // Automatically hide the message after 5 seconds
+    setTimeout(() => {
+        messageContainer.style.display = 'none';
+    }, 2000);
+}
   </script>
+
+  <script>
+  // Toggle filter popup
+  function toggleFilter() {
+    const filterPopup = document.getElementById('filterPopup');
+    filterPopup.style.display = filterPopup.style.display === 'none' || filterPopup.style.display === '' ? 'block' : 'none';
+  }
+
+  // Close the filter popup when clicking outside of it
+  document.addEventListener('click', function (event) {
+    const filterPopup = document.getElementById('filterPopup');
+    const filterButton = document.querySelector('.filter-icon');
+
+    // Check if the click is outside the filter popup and not on the filter button
+    if (filterPopup.style.display === 'block' && !filterPopup.contains(event.target) && event.target !== filterButton) {
+      filterPopup.style.display = 'none';
+    }
+  });
+
+  // Ensure the filter popup is hidden on page load
+  document.addEventListener('DOMContentLoaded', function () {
+    const filterPopup = document.getElementById('filterPopup');
+    filterPopup.style.display = 'none'; // Explicitly set to 'none' on page load
+  });
+</script>
+
+<script>
+    // Navigate to the previous page
+    function goBack() {
+        history.back();
+    }
+
+    // Navigate to the next page
+    function goForward() {
+        history.forward();
+    }
+</script>
+
 </body>
 </html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        /* Reset margin and padding for body and html */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Header styling */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: linear-gradient(to bottom, #6a0dad, #00ff00); /* Gradient background */
+            color: white;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure header is above other content */
+            position: sticky;
+            box-sizing: border-box; /* Include padding and border in width calculation */
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left img {
+            height: 50px; /* Adjust logo size */
+            margin-right: 10px; /* Add spacing between images */
+        }
+
+        .home-button {
+            background-color: white;
+            color: #1b5eb0;
+            border: 2px solid #1b5eb0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            background-color: #1b5eb0;
+            color: white;
+        }
+
+        /* Review Order Section */
+        .review-order {
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-order h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .review-order p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Toggle Buttons */
+        .toggle-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .toggle-buttons button {
+            flex: 1;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid rgb(0, 123, 255); /* Light blue border */
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .toggle-buttons .active {
+            background-color: rgb(0, 123, 255); /* Light blue background */
+            color: white;
+        }
+
+        .toggle-buttons button:not(.active) {
+            background-color: white;
+            color: rgb(0, 123, 255); /* Light blue text */
+        }
+
+        .toggle-buttons button:not(.active):hover {
+            background-color: rgba(0, 123, 255, 0.1); /* Light blue hover effect */
+        }
+
+        /* Payment Section */
+        .payment-method {
+            margin: 20px auto;
+            width: 80%;
+            text-align: center;
+        }
+
+        /* Payment Method Buttons */
+        .payment-method button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border: 2px solid rgb(0, 123, 255); /* Light blue border */
+            border-radius: 5px;
+            background-color: white;
+            color: rgb(0, 123, 255);
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .payment-method button.active {
+            background-color: rgb(0, 123, 255);
+            color: white;
+        }
+
+        .payment-method button:hover {
+            background-color: green; /* Change background color to green on hover */
+            color: white; /* Change text color to white on hover */
+        }
+
+        .card-form {
+            display: none; /* Hidden by default */
+            margin: 20px auto;
+            width: 80%;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-form input,
+        .card-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .card-form button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .card-form button:hover {
+            background-color: darkorange;
+        }
+
+        .input-with-logos {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-with-logos input {
+            width: 100%;
+            padding-right: 120px; /* Add space for the logos */
+            padding-left: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 40px;
+            box-sizing: border-box;
+        }
+
+        .card-logos {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 5px;
+        }
+
+        .card-logos img {
+            width: 30px; /* Adjust logo size */
+            height: auto;
+        }
+
+        /* Background image styling */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('cout.png') no-repeat center center/cover;
+            z-index: -1;
+            transition: filter 0.3s ease;
+        }
+
+        .background-image.blur {
+            filter: blur(8px);
+        }
+
+        /* Navigation buttons */
+        .navigation-buttons {
+            display: flex;
+            margin: 10px 20px; /* Add spacing from the header */
+            position: relative; /* Ensure proper positioning */
+            top: 0; /* Align it directly below the header */
+            left: 0; /* Align to the left of the page */
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: rgb(51, 129, 194);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigation-buttons button:hover {
+            background-color: rgb(41, 109, 174); /* Darker blue on hover */
+        }
+
+        /* Apple Pay specific styles */
+        .apple-pay-logo {
+            position: absolute;
+            top: 0px; /* Adjust to move the logo down */
+            left: 700px; /* Adjust to move the logo to the left */
+            width: 80px; /* Adjust the size of the logo */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div> <!-- Background image container -->
+    <header>
+        <div class="header-left">
+            <img src="logo.png" alt="Logo"> <!-- Replace with the actual logo file path -->
+            <img src="goods2go.jpg" alt="Goods2Go"> <!-- Replace with the actual goods2go image file path -->
+        </div>
+        <a href="index1.html" class="home-button">🏠 Home</a>
+    </header>
+
+    <!-- Back Arrow Button -->
+    <div class="navigation-buttons">
+        <button onclick="goToBookmarks()">⬅ Back</button>
+    </div>
+
+    <div class="review-order">
+        <h2>Review Order</h2>
+        <p><strong>Store:</strong> <span id="storeName">Loading...</span></p>
+        <p><strong>Quantity:</strong> <span id="quantity">0</span></p>
+    </div>
+
+    <div class="toggle-buttons">
+        <button id="pickupButton" class="active" onclick="toggleMethod('pickup')">Pickup</button>
+        <button id="deliveryButton" onclick="toggleMethod('delivery')">Delivery</button>
+    </div>
+
+    <div class="payment-method">
+        <h3>Select Payment Method</h3>
+        <button id="paypalButton" onclick="selectPaymentMethod('paypal')">PayPal</button>
+        <button id="applePayButton" onclick="selectPaymentMethod('applePay')">Apple Pay</button>
+        <button id="cardButton" onclick="selectPaymentMethod('card')">Card</button>
+    </div>
+
+    <div class="card-form" id="cardForm">
+        <h3>Card Payment</h3>
+        <div class="input-with-logos">
+            <input type="text" placeholder="Card number" maxlength="19">
+            <div class="card-logos">
+                <img src="visa-logo.png" alt="Visa"> <!-- Replace with actual Visa logo path -->
+                <img src="mastercard-logo.png" alt="MasterCard"> <!-- Replace with actual MasterCard logo path -->
+                <img src="amex-logo.webp" alt="Amex"> <!-- Replace with actual Amex logo path -->
+                <img src="discover-logo.png" alt="Discover"> <!-- Replace with actual Discover logo path -->
+            </div>
+        </div>
+        <input type="text" placeholder="Expiration date (MM/YY)">
+        <input type="text" placeholder="Security code (CVC)">
+        <select>
+            <option value="United States">United States</option>
+            <!-- Add more countries as needed -->
+        </select>
+        <input type="text" placeholder="ZIP code">
+        <label style="display: inline-block; vertical-align: middle;">
+            Yes, save card details for easy reordering
+            <input type="checkbox" style="margin-left: 10px; vertical-align: middle;">
+        </label>
+        <button>Continue</button>
+    </div>
+
+    <div class="paypal-form" id="paypalForm" style="display: none;">
+        <h3>PayPal Payment</h3>
+        <img src="paypal-logo.png" alt="PayPal Logo" style="width: 150px; margin-bottom: 20px;"> <!-- Replace with actual PayPal logo path -->
+        <input type="email" placeholder="Email or mobile number" style="margin-bottom: 10px;">
+        <input type="password" placeholder="Password" style="margin-bottom: 10px;">
+        <button style="width: 100%; background-color: #0070ba; color: white; padding: 10px; border: none; border-radius: 5px; margin-bottom: 10px;">Log In</button>
+        <a href="#" style="display: block; text-align: center; margin-bottom: 10px; color: #2800ba;">Forgot password?</a>
+        <p style="text-align: center; margin: 10px 0;">or</p>
+        <button style="width: 100%; background-color: #f5f5f5; color: black; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px;">Checkout as Guest</button>
+        <div style="text-align: center; margin-top: 10px;">
+            <img src="visa-logo.png" alt="Visa" style="width: 40px; margin-right: 10px;"> <!-- Replace with actual Visa logo path -->
+            <img src="mastercard-logo.png" alt="MasterCard" style="width: 40px; margin-right: 10px;"> <!-- Replace with actual MasterCard logo path -->
+            <img src="amex-logo.webp" alt="Amex" style="width: 40px; margin-right: 10px;"> <!-- Replace with actual Amex logo path -->
+            <img src="discover-logo.png" alt="Discover" style="width: 40px;"> <!-- Replace with actual Discover logo path -->
+        </div>
+    </div>
+
+    <div class="apple-pay-form" id="applePayForm" style="display: none;">
+        <h3 style="color: white; text-align: center; font-size: 24px; margin-bottom: 20px;"> Pay</h3>
+        <div style="background-color: black; color: white; padding: 20px; border-radius: 10px; position: relative;">
+            <img src="ap.png" alt="Apple Pay Logo" class="apple-pay-logo"> <!-- Apple Pay logo -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="font-size: 18px;">Card</div>
+                <div style="background: linear-gradient(to right, #ffcc00, #ff9900); width: 50px; height: 30px; border-radius: 5px;"></div>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 16px;">Billing & Shipping</p>
+                <p style="margin: 0; font-size: 14px; color: #ccc;">123 Main St</p>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <p style="margin: 0; font-size: 16px;">Contact</p>
+                <p style="margin: 0; font-size: 14px; color: #ccc;">email@example.com</p>
+            </div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="fing2.png" alt="Fingerprint" style="width: 100px; margin-bottom: 10px;"> <!-- Fingerprint icon -->
+                <p style="color: red; font-size: 14px;">Use Face ID or enter password</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load store name and quantity from localStorage (or bookmarks.html)
+        document.addEventListener('DOMContentLoaded', () => {
+            const storeName = localStorage.getItem('selectedStore') || 'Unknown Store';
+            const quantity = localStorage.getItem('selectedQuantity') || 0;
+
+            document.getElementById('storeName').textContent = storeName;
+            document.getElementById('quantity').textContent = quantity;
+        });
+
+        // Toggle between Pickup and Delivery
+        function toggleMethod(method) {
+            const pickupButton = document.getElementById('pickupButton');
+            const deliveryButton = document.getElementById('deliveryButton');
+
+            if (method === 'pickup') {
+                pickupButton.classList.add('active');
+                deliveryButton.classList.remove('active');
+            } else if (method === 'delivery') {
+                deliveryButton.classList.add('active');
+                pickupButton.classList.remove('active');
+            }
+        }
+
+        function selectPaymentMethod(method) {
+            // Reset all buttons
+            document.getElementById('paypalButton').classList.remove('active');
+            document.getElementById('applePayButton').classList.remove('active');
+            document.getElementById('cardButton').classList.remove('active');
+
+            // Highlight the selected button
+            document.getElementById(method + 'Button').classList.add('active');
+
+            // Show or hide the payment forms
+            const cardForm = document.getElementById('cardForm');
+            const paypalForm = document.getElementById('paypalForm');
+            const applePayForm = document.getElementById('applePayForm');
+            const backgroundImage = document.querySelector('.background-image');
+
+            if (method === 'card') {
+                cardForm.style.display = 'block';
+                paypalForm.style.display = 'none';
+                applePayForm.style.display = 'none';
+                backgroundImage.classList.add('blur');
+            } else if (method === 'paypal') {
+                paypalForm.style.display = 'block';
+                cardForm.style.display = 'none';
+                applePayForm.style.display = 'none';
+                backgroundImage.classList.add('blur');
+            } else if (method === 'applePay') {
+                applePayForm.style.display = 'block';
+                cardForm.style.display = 'none';
+                paypalForm.style.display = 'none';
+                backgroundImage.classList.add('blur');
+            } else {
+                cardForm.style.display = 'none';
+                paypalForm.style.display = 'none';
+                applePayForm.style.display = 'none';
+                backgroundImage.classList.remove('blur');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cardNumberInput = document.querySelector('.input-with-logos input');
+            const cardLogos = document.querySelector('.card-logos');
+
+            cardNumberInput.addEventListener('input', () => {
+                if (cardNumberInput.value.trim() === '') {
+                    cardLogos.style.display = 'flex'; // Show logos when input is empty
+                } else {
+                    cardLogos.style.display = 'none'; // Hide logos when typing
+                }
+            });
+        });
+
+        // Navigate to bookmarks.html
+        function goToBookmarks() {
+            window.location.href = 'bookmarks.html';
+        }
+    </script>
+</body>
+</html>
