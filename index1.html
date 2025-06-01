@@ -262,6 +262,8 @@
 .zip-code-button:hover {
   transform: scale(1.05); /* Slightly enlarge the button */
 }
+
+
   </style>
 </head>
 <body>
@@ -272,9 +274,9 @@
     <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/goods2go.jpg" alt="Goods2Go" class="logo">
   </div>
   <div class="top-right-buttons">
-  <button onclick="showSection('home')">🏠 Home</button>
-  <button onclick="window.location.href='bookmarks.html'">🔖 Bookmark</button>
-</div>
+    <button onclick="saveCurrentPage('index1.html'); window.location.href='index1.html';">🏠 Home</button>
+    <button onclick="saveCurrentPage('bookmarks.html'); window.location.href='bookmarks.html';">🔖 Bookmark & 🛒 Checkout</button>
+  </div>
 </header>
 
 <button class="filter-icon" onclick="toggleFilter()">☰ ⚙️</button>
@@ -336,6 +338,13 @@
 
 <div id="messageContainer" style="display: none; background-color: #e90e0e4f; color: rgb(0, 0, 0); padding: 10px; text-align: center; font-size: 16px; position: fixed; top: 15px; left: 0; width: 100%; z-index: 1000;">
 </div>
+
+<button id="forwardButton" onclick="goForward()" 
+    style="padding: 10px 20px; background-color: rgb(4, 103, 252); color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; position: absolute; top: 150px; left: 20px;"
+    onmouseover="this.style.backgroundColor='red'; this.style.color='white';"
+    onmouseout="this.style.backgroundColor='skyblue'; this.style.color='white';">
+    Forward ➡ 
+</button>
 
 <script>
   
@@ -460,6 +469,41 @@ function saveZipCode() {
         showMessage("Please enter a valid ZIP Code.");
     }
 }
+</script>
+
+<script>
+// Save the current page before navigating to another page
+function saveCurrentPage(page) {
+    localStorage.setItem('lastVisitedPage', page);
+}
+
+// Navigate to the forward page
+function goForward() {
+    const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+    if (lastVisitedPage) {
+        window.location.href = lastVisitedPage;
+    } else {
+        showMessage("No forward page available.");
+    }
+}
+
+// Update the Forward button state dynamically
+document.addEventListener('DOMContentLoaded', () => {
+    const forwardButton = document.getElementById('forwardButton');
+    const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+
+    if (!lastVisitedPage) {
+        // Disable the Forward button if no last visited page is available
+        forwardButton.style.backgroundColor = 'lightgray';
+        forwardButton.style.cursor = 'not-allowed';
+        forwardButton.disabled = true;
+    } else {
+        // Enable the Forward button if a last visited page is available
+        forwardButton.style.backgroundColor = 'skyblue';
+        forwardButton.style.cursor = 'pointer';
+        forwardButton.disabled = false;
+    }
+});
 </script>
 
 </body>
