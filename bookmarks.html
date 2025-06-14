@@ -163,8 +163,8 @@
 <body>
   <header>
     <div class="header-left">
-        <img src="logo.png" alt="Logo" class="logo" onclick="goHome()">
-        <img src="goods2go.jpg" alt="Goods2Go" class="logo">
+        <img src="image/logo.png" alt="Logo" class="logo" onclick="goHome()">
+        <img src="image/goods2go.jpg" alt="Goods2Go" class="logo">
     </div>
     <div class="top-right-buttons">
         <button onclick="window.location.href='index1.html'">🏠 Home</button>
@@ -208,7 +208,7 @@
               </div>
               <p><strong>Medicine:</strong> ${bookmark.medicine}</p>
               <button onclick="removeBookmark('${bookmark.zip}', '${bookmark.company}', '${bookmark.medicine}', this)">Remove</button>
-              <button class="checkout-button" onclick="selectBookmark({ medicine: '${bookmark.medicine}', store: '${bookmark.company}', quantity: ${bookmark.quantity}, price: '${bookmark.price}', location: '${bookmark.address}, ${bookmark.city}, ${bookmark.state} ${bookmark.zip}' })">Check out</button>
+              <button class="checkout-button" onclick="selectBookmark({ medicine: '${bookmark.medicine}', store: '${bookmark.company}', quantity: ${bookmark.quantity}, price: '${bookmark.price}', location: '${bookmark.address}, ${bookmark.city}, ${bookmark.state} ${bookmark.zip}', availability: '${bookmark.availability}' })">Check out</button>
             </div>
             <div class="bookmark-map">
               <iframe
@@ -254,15 +254,19 @@
 
     // Redirect to checkout.html
     function selectBookmark(bookmark) {
-    // Store bookmark details in localStorage
-    localStorage.setItem('selectedStore', bookmark.store || 'Unknown Store');
-    localStorage.setItem('selectedMedicine', bookmark.medicine || 'Unknown Medicine');
-    localStorage.setItem('selectedQuantity', bookmark.quantity );
-    localStorage.setItem('selectedPrice', bookmark.price || 'N/A');
-    localStorage.setItem('selectedLocation', bookmark.location || 'Unknown Location');
+  if (bookmark.availability === 'Out of Stock') {
+    showNotification('Item is out of stock, you cannot proceed to checkout.');
+    return;
+  }
+  // Store bookmark details in localStorage
+  localStorage.setItem('selectedStore', bookmark.store || 'Unknown Store');
+  localStorage.setItem('selectedMedicine', bookmark.medicine || 'Unknown Medicine');
+  localStorage.setItem('selectedQuantity', bookmark.quantity );
+  localStorage.setItem('selectedPrice', bookmark.price || 'N/A');
+  localStorage.setItem('selectedLocation', bookmark.location || 'Unknown Location');
 
-    // Navigate to checkout.html
-    window.location.href = 'checkout.html';
+  // Navigate to checkout.html
+  window.location.href = 'checkout.html';
 }
 
     // Show notification

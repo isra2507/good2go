@@ -1,3 +1,15 @@
+
+<!--
+Project: Pharmacy Store
+Description: This HTML file represents the main page of a pharmacy store website. It includes a header with logos, a search bar, filter options, and sections for about us and a map to find nearby drug stores.
+ These Html pages are styled using CSS and includes JavaScript for interactivity.
+Made by: Isra Sookun, Billy Van, Christian Ellstrom, Jaskirat Singh
+Date: 6th June 2025   
+Version: 1.0
+
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +21,7 @@
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url("C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/R.png");
+  background-image: url("image/pill_bcg1.png");
   background-blend-mode: lighten;
   background-repeat: no-repeat;
   background-attachment: fixed; 
@@ -255,6 +267,7 @@
   margin-bottom: 20px; /* Add space below */
   text-align: center;
   background: linear-gradient(to bottom, #ffffff, #00a2ff); /* Gradient background */
+  background-clip: text; /* Standard property for compatibility */
   -webkit-background-clip: text; /* Clip the background to the text */
   -webkit-text-fill-color: transparent; /* Make the text transparent to show the gradient */
 }
@@ -270,8 +283,8 @@
 
 <header>
   <div class="header-left">
-    <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/logo.png" alt="Logo" class="logo" onclick="goHome()">
-    <img src="C:/Users/isras/OneDrive/Desktop/Bellevue College/Spring 2025/CS 410 Software engineering/Final/goods2go.jpg" alt="Goods2Go" class="logo">
+    <img src="image/logo.png" alt="Logo" class="logo" onclick="goHome()">
+    <img src="image/goods2go.jpg" alt="Goods2Go" class="logo">
   </div>
   <div class="top-right-buttons">
     <button onclick="saveCurrentPage('index1.html'); window.location.href='index1.html';">🏠 Home</button>
